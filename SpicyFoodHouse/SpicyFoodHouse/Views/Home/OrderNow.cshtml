@@ -1,0 +1,595 @@
+﻿
+@model SpicyFoodHouse.Models.FoodOrder
+>
+@{
+    ViewData["Title"] = "OrderNow";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int serialNo = 1;
+    
+
+}
+
+
+
+<div id="order-now-marquee-id">
+    <marquee>
+
+        <h2>
+            <b>You can order multiple food from here by clicking shop button.</b>
+        </h2>
+    </marquee>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Order Information.</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBody" style="margin: 50px;">
+                
+                <form>
+                    <input type="text" id="number-of-food-from-modal-id" name="numberOfFoodFromModal" class="form-control" placeholder="   enter number of food"/><br />
+                    <label id="number-of-food-error-message-show-in-modal-id"></label>
+
+                    <select id="quarter-select-from-modal-id" name="quarterIdFromModal" class="form-control">
+                        <option value="0">---- Select food quarter ----</option>
+                        <option value="1"> Half </option>
+                        <option value="2"> Full </option>
+                        <option value="3"> Double </option>
+                    </select>
+                    <label id="quarter-select-error-message-show-in-modal-id"></label>
+                    
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                <a onclick="foodIdAndQuarter()" class="btn btn-success">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="infoViewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Information of your selected food.</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="infoViewModalBody" style="margin: 30px;">
+                
+                
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-danger" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orderInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Order Information.</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="orderInfoModalBody" style="margin: 30px;">
+
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-danger" asp-controller="Home" asp-action="OrderNow">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="order-now-section">
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" id="order-now-table-id">
+
+            <div>
+                <form class="form-inline">
+
+                    <div class="form-group">
+                        <input type="text" name="srctext" class="form-control" placeholder=" Search in word...." />
+                           
+                    </div>
+                    <div class="form-group">
+                        <h4 class="text-danger">Total result : @ViewBag.totalCount</h4>
+                    </div>
+                </form>
+                <br /><br />
+                <table class="table table-bordered table-hover table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th>
+                            No.
+                        </th>
+                        <th>
+                            Food Name
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Food Type
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Available
+                        </th>
+                        <th>
+                            Discount
+                        </th>
+                        <th>
+                            Is Trending
+                        </th>
+                        <th>
+                            Is Popular
+                        </th>
+                        <th>
+                            Is Discounted
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in ViewBag.foodList)
+                    {
+                        <tr id="row_@item.FoodId">
+                            <td>
+                                @serialNo
+                            </td>
+                            <td>
+                                @item.FoodName
+                            </td>
+                            <td>
+                                <img src="data:image;base64, @Convert.ToBase64String(item.Image)" class="img-responsive" width="50px" height="50px" />
+                            </td>
+                            <td>
+                                @item.FoodType.TypeName)
+                            </td>
+                            <td>
+                                @if (item.Discount > 0)
+                                {
+                                    <p> @(item.Price - ((item.Price * item.Discount) / 100)) ৳ </p>
+                                    <del> @item.Price ৳</del>
+
+                                }
+                                else
+                                {
+                                    <p> @item.Price ৳</p>
+                                }
+                            </td>
+                            <td>
+                                @if (@Convert.ToInt32(item.AvailableInStock) > 0)
+                                {
+                                    <i class="fas fa-check"></i>
+                                }
+                                else
+                                {
+                                    <i class="fas fa-times"></i>
+                                }
+                            </td>
+                            <td>
+                                @item.Discount%
+                            </td>
+                            <td>
+                                @if (item.IsTranding == true)
+                                {
+                                    <i class="fas fa-check"></i>
+                                }
+                                else if (item.IsTranding == false)
+                                {
+                                    <i class="fas fa-times"></i>
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsPopular == true)
+                                {
+                                    <i class="fas fa-check"></i>
+                                }
+                                else if (item.IsPopular == false)
+                                {
+                                    <i class="fas fa-times"></i>
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsDiscounted == true)
+                                {
+                                    <i class="fas fa-check"></i>
+                                }
+                                else if (item.IsDiscounted == false)
+                                {
+                                    <i class="fas fa-times"></i>
+                                }
+                            </td>
+                            <td>
+                                <a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@item.FoodId" class="btn btn-info glyphicon glyphicon-eye-open"></a>
+
+                                <a class="btn btn-danger glyphicon glyphicon-shopping-cart" onclick="functionOrderItem(@item.FoodId)"></a>
+                            </td>
+                        </tr>
+                        serialNo++;
+                    }
+                    </tbody>
+                </table>
+                <br />
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="order-now-form-id">
+            <div id="order-now-multiple-order-form">
+                <h3><b>Your Order List</b></h3>
+                <hr />
+                    
+                <div id="multiple-order-order-list-id">
+                        
+                    <span class="form-inline" id="order-item-one">
+                        <a class="btn btn-primary glyphicon glyphicon-shopping-cart"> Selected food one</a>
+                        <button class="btn btn-info" id="view-selected-food-info-one">view</button>
+                        <button class="btn btn-danger" id="cancel-selected-food-one">cancel</button><br /><br />
+                    </span>
+                        
+                    <span class="form-inline" id="order-item-two">
+
+                        <a class="btn btn-primary glyphicon glyphicon-shopping-cart">
+                            Selected food two
+                        </a>
+                        <button class="btn btn-info" id="view-selected-food-info-two">view</button>
+                        <button class="btn btn-danger" id="cancel-selected-food-two">cancel</button><br /><br />
+                    </span>
+                        
+                    <span class="form-inline" id="order-item-three">
+                        <a class="btn btn-primary glyphicon glyphicon-shopping-cart">Selected food three
+                        </a>
+                        <button class="btn btn-info" id="view-selected-food-info-three">view</button>
+                        <button class="btn btn-danger" id="cancel-selected-food-three">cancel</button><br /><br />
+                    </span>
+                    
+                    <div id="multiple-order-form-div-id">
+                        <form asp-controller="Home" asp-action="OrderNow" method="post">
+
+                            <input type="hidden" name="foodId1"  id="food-id-one-id"/>
+                            <input type="hidden" name="numberOfFood1" id="number-of-food-one-id"/>
+                            <input type="hidden" name="quarterId1" id="quarter-id-one-id"/>
+
+                            @*order two*@
+
+                            <input type="hidden"  name="foodId2" id="food-id-two-id"/>
+                            <input type="hidden"  name="numberOfFood2" id="number-of-food-two-id"/>
+                            <input type="hidden"  name="quarterId2" id="quarter-id-two-id"/>
+
+                            @*order three*@
+
+                            <input type="hidden" name="foodId3" id="food-id-three-id"/>
+                            <input type="hidden" name="numberOfFood3" id="number-of-food-three-id"/>
+                            <input type="hidden" name="quarterId3" id="quarter-id-three-id"/>
+
+                           <input type="submit" class="btn btn-block btn-success" id="multiple-order-confirm-btn-id" value="Confirm Order"/>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div role="tabpanel" class="tab-pane" id="comment-section-id">
+            <div class="leave-comt">
+                <h2 class="content-subhead">LEAVE A COMMENT</h2>
+                <p>Your email address will not be published.</p>
+                <form asp-controller="OthersLogic" asp-action="Comment" method="post">
+                    <div class="contact-form">
+                        <div class="row text-center">
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-10" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="First Name">First Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-11" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Last Name">Last Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 input-position">
+                                <span class="input input--yoshiko">
+                                    <textarea class="input__field input__field--yoshiko" id="input-12" name="commentText"></textarea>
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Message">Message</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 submit-button"><input type="submit" value="Submit" class="def-btn lg-btn" /> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function() {
+
+            // item list hide
+
+            $("#order-item-one").hide();
+            $("#order-item-two").hide();
+            $("#order-item-three").hide();
+
+            $("#multiple-order-confirm-btn-id").hide();
+
+
+            $("#number-of-food-from-modal-id").keyup(function() {
+
+                var numberOfFood = $("#number-of-food-from-modal-id").val();
+
+                if (numberOfFood <= 0) {
+
+                    $("#number-of-food-error-message-show-in-modal-id")
+                        .text("Number of food length must be grater than 0")
+                        .css("color", "red");
+                }
+                if (numberOfFood > 0) {
+                    $("#number-of-food-error-message-show-in-modal-id").text("");
+                }
+
+            });
+
+            $("#quarter-select-from-modal-id").change(function() {
+
+                var value = $("#quarter-select-from-modal-id").val();
+
+                if (value <= 0) {
+
+                    $("#quarter-select-error-message-show-in-modal-id").text("Please select a Quarter type.")
+                        .css("color", "red");
+                }
+                if (value > 0) {
+                    $("#quarter-select-error-message-show-in-modal-id").text("");
+                }
+            });
+
+            // selected food information view 
+
+            $("#view-selected-food-info-one").click(function() {
+
+                var id = $("#food-id-one-id").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/SelelctedOrderItemInfo",
+                    data: { id: id },
+                    success: function(response) {
+
+                        $("#infoViewModalBody").html(response);
+                        $("#infoViewModal").modal("show");
+                    }
+                });
+
+            });
+
+            $("#view-selected-food-info-two").click(function() {
+
+                var id = $("#food-id-two-id").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/SelelctedOrderItemInfo",
+                    data: { id: id },
+                    success: function(response) {
+
+                        $("#infoViewModalBody").html(response);
+                        $("#infoViewModal").modal("show");
+                    }
+                });
+
+            });
+
+            $("#view-selected-food-info-three").click(function() {
+
+                var id = $("#food-id-three-id").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/SelelctedOrderItemInfo",
+                    data: { id: id },
+                    success: function(response) {
+
+                        $("#infoViewModalBody").html(response);
+                        $("#infoViewModal").modal("show");
+                    }
+                });
+
+            });
+
+            //  Selected food Cancel
+
+            $("#cancel-selected-food-one").click(function() {
+
+                $("#cancelModal").modal("show");
+
+                $("#food-id-one-id").val(null);
+                $("#number-of-food-one-id").val(null);
+                $("#quarter-id-one-id").val(null);
+
+                $("#order-item-one").hide();
+
+            });
+
+            $("#cancel-selected-food-two").click(function() {
+
+                $("#food-id-two-id").val(null);
+                $("#number-of-food-two-id").val(null);
+                $("#quarter-id-two-id").val(null);
+
+                $("#order-item-two").hide();
+
+            });
+
+            $("#cancel-selected-food-three").click(function() {
+
+                $("#food-id-three-id").val(null);
+                $("#number-of-food-three-id").val(null);
+                $("#quarter-id-three-id").val(null);
+
+                $("#order-item-three").hide();
+
+            });
+
+            
+
+            // end document
+        });
+
+
+        // out of document ready function
+
+        var selectedFoodId;
+
+        var functionOrderItem = function (foodId) {
+
+            selectedFoodId = foodId;
+
+            $.ajax({
+
+                type: "post",
+                url: "/Home/FoodIsAvailable",
+                data: { foodId: selectedFoodId },
+                success: function(response) {
+
+                    if (response === "success") {
+
+                        $("#myModal").modal("show");
+                    }
+                    else if (response === "error") {
+
+                        swal("Sorry Sir !", " This Food are no available in sock \n  please try another food !!!", "error");
+                    }
+                }
+            });
+
+
+           
+        }
+
+
+        //  view ordered select item 
+
+
+        var foodIdAndQuarter = function() {
+
+            // take input from modal
+
+            var numberOfFood = $("#number-of-food-from-modal-id").val();
+            var quarterId = $("#quarter-select-from-modal-id").val();
+
+
+            // input field validation checking that which are empty for store input data
+
+            var foodIdIsValid1 = $("#food-id-one-id").val();
+            var numberOfFoodIsValid1 = $("#number-of-food-one-id").val();
+            var quarterIdIsValid1 = $("#quarter-id-one-id").val();
+
+
+            var foodIdIsValid2 = $("#food-id-two-id").val();
+            var numberOfFoodIsValid2 = $("#number-of-food-two-id").val();
+            var quarterIdIsValid2 = $("#quarter-id-two-id").val();
+
+
+            var foodIdIsValid3 = $("#food-id-three-id").val();
+            var numberOfFoodIsValid3 = $("#number-of-food-three-id").val();
+            var quarterIdIsValid3 = $("#quarter-id-three-id").val();
+
+            
+
+            if (foodIdIsValid1 <= 0 && numberOfFoodIsValid1 <= 0 && quarterIdIsValid1 <= 0) {
+
+                $("#food-id-one-id").val(selectedFoodId);
+                $("#number-of-food-one-id").val(numberOfFood);
+                $("#quarter-id-one-id").val(quarterId);
+
+                $("#number-of-food-from-modal-id").val(null);
+                $("#quarter-select-from-modal-id").val(0);
+
+
+                $("#myModal").modal("hide");
+                $("#order-item-one").show();
+                $("#multiple-order-confirm-btn-id").show();
+
+
+            }
+            else if (foodIdIsValid2 <= 0 && numberOfFoodIsValid2 <= 0 && quarterIdIsValid2 <= 0) {
+
+                $("#food-id-two-id").val(selectedFoodId);
+                $("#number-of-food-two-id").val(numberOfFood);
+                $("#quarter-id-two-id").val(quarterId);
+
+                $("#number-of-food-from-modal-id").val(null);
+                $("#quarter-select-from-modal-id").val(0);
+
+
+                $("#myModal").modal("hide");
+                $("#order-item-two").show();
+                $("#multiple-order-confirm-btn-id").show();
+
+      
+            }
+            else if (foodIdIsValid3 <= 0 && numberOfFoodIsValid3 <= 0 && quarterIdIsValid3 <= 0) {
+
+
+                $("#food-id-three-id").val(selectedFoodId);
+                $("#number-of-food-three-id").val(numberOfFood);
+                $("#quarter-id-three-id").val(quarterId);
+
+
+                $("#number-of-food-from-modal-id").val(null);
+                $("#quarter-select-from-modal-id").val(0);
+
+
+                $("#myModal").modal("hide");
+                $("#order-item-three").show();
+                $("#multiple-order-confirm-btn-id").show();
+                
+            
+            } else {
+
+                $("#myModal").modal("hide");
+
+                swal("Sorry!", "Your Can't add more than 3 item of food in order. \n please go to the right side of screen and confirm this order. \n and try again for another new order thanks !!!", "error");
+            }
+
+
+        }
+        //  end food item and quarter id add
+
+
+    </script>
+}

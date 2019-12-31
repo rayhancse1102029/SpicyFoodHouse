@@ -1,0 +1,447 @@
+﻿@using System.Linq
+@model PaginatedList<SpicyFoodHouse.Models.FoodOrder>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+    int i = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+
+
+}
+
+<style>
+    thead {
+        background: #ffd700;
+    }
+    thead, tbody {
+        text-align: center;
+    }
+    .customerEmail-id:hover {
+        cursor: pointer;
+    }
+
+</style>
+<h2>Index</h2>
+
+
+
+<form asp-action="Index" method="post" class="form-inline">
+
+    <div class="form-group">
+        <input asp-action="Create" class="btn btn-success" value="Create New"/>
+        <input type="text" name="srctext" class="form-control" placeholder=" Search in word...."/>
+        <select name="sortId" class="form-control">
+            <option value="0">----Sort order by----</option>
+            <option value="1"> Seen</option>
+            <option value="2"> UnSeen</option>
+        </select>
+        <input id="src-btn" type="submit" class="btn btn-success" value="Search"/>
+    </div>
+    <div class="form-group">
+        <h4 class="text-danger">Total result : @ViewBag.totalCount</h4>
+    </div>
+</form>
+<br/><br/>
+
+<input type="hidden" value="Show" id="input-hidden-field-one" />
+<input type="hidden" value="Show" id="input-hidden-field-two" />
+<input type="hidden" value="Show" id="input-hidden-field-three" />
+
+<table class="table table-bordered table-striped table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>
+                ID No.
+            </th>
+            <th>
+                Customer Email
+            </th>
+            <th>
+                Order One
+            </th>
+            <th class="ordered-food-one">
+                Food Type
+            </th>
+            <th class="ordered-food-one">
+                Food Name
+            </th>
+            <th class="ordered-food-one">
+                Price
+            </th>
+            <th class="ordered-food-one">
+                Number of Food
+            </th>
+            <th class="ordered-food-one">
+                Food Quarter
+            </th>
+            <th class="ordered-food-one">
+                Total Price
+            </th>
+            <th>
+                Order Two
+            </th>
+            <th class="ordered-food-two">
+                Type Id2
+            </th>
+            <th class="ordered-food-two">
+                Food Name2
+            </th>
+            <th class="ordered-food-two">
+                Price2
+            </th>
+            <th class="ordered-food-two">
+                Number of Food2
+            </th>
+            <th class="ordered-food-two">
+                Quarter Id2
+            </th>
+            <th class="ordered-food-two">
+                Total Price2
+            </th>
+            <th>
+                Order Three
+            </th>
+            <th class="ordered-food-three">
+                Type Id3
+            </th>
+            <th class="ordered-food-three">
+                Food Name3
+            </th>
+            <th class="ordered-food-three">
+                Price3
+            </th>
+            <th class="ordered-food-three">
+                Number of Food3
+            </th>
+            <th class="ordered-food-three">
+                Quarter Id3
+            </th>
+            <th class="ordered-food-three">
+                Total Price3
+            </th>
+            <th>
+                All Total Price
+            </th>
+            <th>
+                Last Five Digit
+            </th>
+            <th>
+                IsPaid
+            </th>
+            <th>
+                IsSeen
+            </th>
+            <th>
+                IsAccepted
+            </th>
+            <th>
+                IsRejected
+            </th>
+            <th>
+                Order Date
+            </th>
+            <th>
+                Payment Method
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p>@item.OrderId</p>
+                </td>
+                <td>
+                    <a class="customerEmail-id" onclick="clientInformation(@item.OrderId)">@item.CustomerEmail</a>
+                </td>
+                <td>
+                    <a class="btn btn-info show-ordered-food-one">
+                        Show
+                    </a>
+                </td>
+                <td class="ordered-food-one">
+                    @Html.DisplayFor(modelItem => item.FoodType.TypeName)
+                </td>
+                <td class="ordered-food-one">
+                    @Html.DisplayFor(modelItem => item.FoodName)
+                </td>
+                <td class="ordered-food-one">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td class="ordered-food-one">
+                    @Html.DisplayFor(modelItem => item.NumberOfFood)
+                </td>
+                <td class="ordered-food-one">
+                    @Html.DisplayFor(modelItem => item.FoodQuarter.QuarterName)
+                </td>
+                <td class="ordered-food-one">
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <a class="btn btn-info show-ordered-food-two">
+                        Show
+                    </a>
+                </td>
+                <td class="ordered-food-two">
+                    @foreach (var item2 in ViewBag.foodTypes)
+                    {
+                        if (item2.TypeId == item.TypeId2)
+                        {
+                            @item2.TypeName;
+                        }
+                    }
+
+                </td>
+                <td class="ordered-food-two">
+                    @Html.DisplayFor(modelItem => item.FoodName2)
+                </td>
+                <td class="ordered-food-two">
+                    @Html.DisplayFor(modelItem => item.Price2)
+                </td>
+                <td class="ordered-food-two">
+                    @Html.DisplayFor(modelItem => item.NumberOfFood2)
+                </td>
+                <td class="ordered-food-two">
+                    @Html.DisplayFor(modelItem => item.QuarterId2)
+                </td>
+                <td class="ordered-food-two">
+                    @Html.DisplayFor(modelItem => item.TotalPrice2)
+                </td>
+                <td>
+                    <a class="btn btn-info show-ordered-food-three">
+                        Show
+                    </a>
+                </td>
+                <td class="ordered-food-three">
+                    @foreach (var item3 in ViewBag.foodTypes)
+                    {
+                        if (item3.TypeId == item.TypeId3)
+                        {
+                            @item3.TypeName;
+                        }
+                    }
+                </td>
+                <td class="ordered-food-three">
+                    @Html.DisplayFor(modelItem => item.FoodName3)
+                </td>
+                <td class="ordered-food-three">
+                    @Html.DisplayFor(modelItem => item.Price3)
+                </td>
+                <td class="ordered-food-three">
+                    @Html.DisplayFor(modelItem => item.NumberOfFood3)
+                </td>
+                <td class="ordered-food-three">
+                    @Html.DisplayFor(modelItem => item.QuarterId3)
+                </td>
+                <td class="ordered-food-three">
+                    @Html.DisplayFor(modelItem => item.TotalPrice3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubTotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastFiveDigit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPaid)
+                </td>
+                <td>
+                    @if (item.IsSeen == false)
+                    {
+                        <a asp-controller="FoodOrders" asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-success">view</a>
+                    }
+                    @if (item.IsSeen == true)
+                    {
+                        <a asp-controller="FoodOrders" asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-default">view</a>
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAccepted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsRejected)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentMethod.PaymentMethodName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-success glyphicon glyphicon-edit"></a> 
+                    <a asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-info glyphicon glyphicon-eye-open"></a> 
+                    <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger glyphicon glyphicon-trash"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewBag.sortOrder"
+       asp-route-page=@(Model.PageIndex - 1)
+       class="btn btn-info @prevDisabled">Previous</a>
+
+    @{
+        var start = cp - 5;
+        var end = cp + 5;
+        for (int j = start; j <= end; j++)
+        {
+            if (j > 0 && j <= tp)
+            {
+                if (cp == j)
+                {
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewBag.sortOrder"
+                       asp-route-page=@j
+                       class="btn btn-danger @nextDisabled">@j</a>
+                }
+                else
+                {
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewBag.sortOrder"
+                       asp-route-page=@j
+                       class="btn btn-info @nextDisabled">@j</a>
+                }
+            }
+        }
+    }
+
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewBag.sortOrder"
+       asp-route-page=@(Model.PageIndex + 1)
+       class="btn btn-info @nextDisabled">
+        Next
+    </a>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Customer Information</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $(".ordered-food-one").hide();
+            $(".ordered-food-two").hide();
+            $(".ordered-food-three").hide();
+
+            // Order One
+
+            $(".show-ordered-food-one").click(function () {
+
+                var check = $("#input-hidden-field-one").val();
+
+                if (check === 'Show') {
+
+                    $(".ordered-food-one").show();
+                    $(".ordered-food-one").css('color', 'red');
+                    $(".show-ordered-food-one").text('Hide');
+                    $("#input-hidden-field-one").val('Hide');
+                }
+                else {
+
+                    $(".ordered-food-one").hide();
+                    $(".show-ordered-food-one").text('Show');
+                    $("#input-hidden-field-one").val('Show');
+
+                }
+            });
+
+            // Order Two
+
+            $(".show-ordered-food-two").click(function () {
+
+                var check = $("#input-hidden-field-two").val();
+
+                if (check === 'Show') {
+
+                    $(".ordered-food-two").show();
+                    $(".ordered-food-two").css('color', 'black');
+                    $(".show-ordered-food-two").text('Hide');
+                    $("#input-hidden-field-two").val('Hide');
+                }
+                else {
+
+                    $(".ordered-food-two").hide();
+                    $(".show-ordered-food-two").text('Show');
+                    $("#input-hidden-field-two").val('Show');
+
+                }
+            });
+
+            // Order Three
+
+            $(".show-ordered-food-three").click(function () {
+
+                var check = $("#input-hidden-field-three").val();
+
+                if (check === 'Show') {
+
+                    $(".ordered-food-three").show();
+                    $(".ordered-food-three").css('color', 'red');
+                    $(".show-ordered-food-three").text('Hide');
+                    $("#input-hidden-field-three").val('Hide');
+                }
+                else {
+
+                    $(".ordered-food-three").hide();
+                    $(".show-ordered-food-three").text('Show');
+                    $("#input-hidden-field-three").val('Show');
+
+                }
+            });
+
+            // document end
+        });
+
+        // Client Information Show in modal
+
+        //$(".myModal").hide();
+
+        var clientInformation = function(orderId) {
+
+            $.ajax({
+                type: "POST",
+                url: "/FoodOrders/CustomerInfoSHow",
+                data: { orderId: orderId },
+                success: function(response) {
+
+                    $("#myModalBody").html(response);
+                    $("#myModal").modal("show");
+                }
+            });
+        }
+
+    </script>
+}

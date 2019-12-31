@@ -1,0 +1,339 @@
+﻿
+
+@model PaginatedList<SpicyFoodHouse.Models.Comment>
+
+@{
+    ViewData["Title"] = "ViewFoodDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+
+}
+
+<style>
+
+    .food-qulity {
+        background: none;
+    }
+    .box-zoom img {
+        border: 40px solid whitesmoke;
+    }
+ 
+</style>
+
+<div class="margin-from-top-in-Others-client-view"></div>
+
+<section>
+    <div class="container product-detail padd-50">
+        <div class="col-md-12">
+            <!-- product image -->
+            <div class="col-md-5 text-center">
+                <div class="box-zoom">
+                    <img src="data:image;base64, @Convert.ToBase64String(ViewBag.image)" alt="img missing" class="img-responsive" />
+                </div>
+            </div>
+            <!-- product image -->
+            <!-- product info -->
+            <div class="col-md-7 product-info">
+                <h2>@ViewBag.foodName</h2>
+                <div class="item-list-rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                    <a href="#"> Reviews</a>
+                </div>
+
+                <div class="price-line">
+                    @if (ViewBag.discount > 0)
+                    {
+                    <h3>@(ViewBag.price - ((ViewBag.price * ViewBag.discount) / 100)) ৳&nbsp;&nbsp;</h3>
+                    <del>@ViewBag.price ৳</del>
+                        <span>&nbsp;&nbsp; @ViewBag.discount% off</span>
+                    }
+                    else
+                    {
+                        <h3> @ViewBag.price ৳</h3>
+                    }
+
+                    @if (ViewBag.availableInStock > 0)
+                    {
+                        <p class="avail"><i class="fa fa-check"></i> In Stock</p>
+                    }
+                    else
+                    {
+                        <p class="avail" style="color: red"><i class="fa fa-times"></i> <b>Sorry Out of Stock</b></p>
+                    }
+                </div><br />
+                <div class="offer">
+                    <br />
+                    <h3>Description</h3>
+                    <p>@ViewBag.description</p>
+
+                    @if (!string.IsNullOrEmpty(ViewBag.tranding))
+                    {
+                        <div class="offer-list">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <p> This is @ViewBag.tranding product. </p>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(ViewBag.popular))
+                    {
+                        <div class="offer-list">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <p> This is @ViewBag.popular product. </p>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(ViewBag.discounted))
+                    {
+                        <div class="offer-list">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <p> This is @ViewBag.discounted product. </p>
+                        </div>
+                    }
+                </div>
+
+                <!--product-about-->
+                <div class="product-about">
+                    <div class="product-about-list">
+                        <span>Food Type :</span>
+                        <p>@ViewBag.foodTypes</p>
+                    </div>
+                    <div class="product-about-list">
+                        <span>Product Code :</span>
+                        <p>#SFH+ @ViewBag.foodId</p>
+                    </div>
+                    <div class="product-about-list">
+                        <span>Tags :</span>
+                        <p>Fast food, Chinese food.</p>
+                    </div>
+                </div>
+
+                <!--Color-var-->
+                <div class="size-var">
+                    <span><b>Quarter :</b></span>
+                    <ul>
+                        <li><a class="half-quarter-info-cls">Half</a></li>
+                        <li><a class="full-quarter-info-cls">Full</a></li>
+                        <li><a class="double-quarter-info-cls">Double</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="quantity-box">
+                    <span>Quantity</span>
+                    <div class="clearfix"></div>
+                    <div id="field1">
+                        <input type="button" id="1" value=1 class="field food-qulity">
+                    </div>
+                    <a class="add-cart-btn" asp-controller="OthersLogic" asp-action="SingleFoodOrder" asp-route-id="@ViewBag.foodId">Add to cart</a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="share">
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa fa-share "></i></a>
+                            <ul class="wow animated fadeInRight">
+                                <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="customer-response padd-50 padd-btn-none">
+                <div class="col-md-12">
+                    <!-- Nav tabs -->
+                    <div class="text-center">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#Information" aria-controls="Information" role="tab" data-toggle="tab">Discription</a></li>
+                            <li role="presentation"><a href="#Reviews" aria-controls="Reviews" role="tab" data-toggle="tab">Additional</a></li>
+                            <li role="presentation"><a href="#Answer" aria-controls="Answer" role="tab" data-toggle="tab">reVIEW</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="Information">
+                            <div class="offer">
+                                <h3>Description</h3>
+                                <p>@ViewBag.description</p>
+                                <h3>Included</h3>
+                                @if (!string.IsNullOrEmpty(ViewBag.tranding))
+                                {
+                                    <div class="offer-list">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        <p> This is @ViewBag.tranding product. </p>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.popular))
+                                {
+                                    <div class="offer-list">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        <p> This is @ViewBag.popular product. </p>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.discounted))
+                                {
+                                    <div class="offer-list">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        <p> This is @ViewBag.discounted product. </p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="Reviews">
+                            <table class="element-table">
+                                <tbody>
+                                    <tr>
+                                        <th>Food Type</th>
+                                        <td>@ViewBag.foodType</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tags</th>
+                                        <td>Fast food, Chinese food.</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Quarter</th>
+                                        <td>Half, Full, Double</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="Answer">
+                            <div class="leave-comt">
+                                <h2 class="content-subhead">LEAVE A COMMENT</h2>
+                                <p>Your email address will not be published.</p>
+                               <div class="contact-form">
+                                    <div class="row text-center">
+                                        <div class="col-sm-6 input-position">
+                                            <span class="input input--yoshiko">
+                                                <input class="input__field input__field--yoshiko" type="text" id="input-10" />
+                                                <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="First Name">First Name</span> </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-6 input-position">
+                                            <span class="input input--yoshiko">
+                                                <input class="input__field input__field--yoshiko" type="text" id="input-11" />
+                                                <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Last Name">Last Name</span> </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12 input-position">
+                                            <span class="input input--yoshiko">
+                                                <textarea class="input__field input__field--yoshiko" id="input-12"></textarea>
+                                                <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Message">Message</span> </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12 submit-button"><a class="def-btn lg-btn" asp-controller="OthersLogic" asp-action="Comment">Submit</a> </div>
+                                    </div>
+                                </div>
+                                <div class="comment-box text-left">
+                                    <h2>@ViewBag.totalComment COMMENT</h2>
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="comment-1">
+                                            <img src="~/assests/img/review/blog-comment-1.jpg" alt="" class="img-circle" />
+                                            <h4>@item.Username</h4>
+                                            &nbsp; <span>@item.CommentTime</span> &nbsp; <a href="#">Reply</a>
+                                            <div class="item-list-rating"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
+                                            <p>@item.CommentText</p>
+                                        </div>
+                                        <div class="divider"></div>
+                                    }
+                                </div>
+                                
+                                <br/><br/>
+                                @{
+                                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                                }
+                                <a asp-action="ViewFoodDetails"
+                                   asp-route-sortOrder="@ViewBag.sortOrder"
+                                   asp-route-page=@(Model.PageIndex - 1)
+                                   class="btn btn-info @prevDisabled">Previous</a>
+
+                                @{
+                                    var start = cp - 5;
+                                    var end = cp + 5;
+                                    for (int j = start; j <= end; j++)
+                                    {
+                                        if (j > 0 && j <= tp)
+                                        {
+                                            if (cp == j)
+                                            {
+                                                <a asp-controller="OthersLogic" asp-action="ViewFoodDetails"
+                                                   asp-route-sortOrder="@ViewBag.sortOrder"
+                                                   asp-route-page=@j
+                                                   class="btn btn-danger @nextDisabled">@j</a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="ViewFoodDetails"
+                                                   asp-route-sortOrder="@ViewBag.sortOrder"
+                                                   asp-route-page=@j
+                                                   class="btn btn-info @nextDisabled">@j</a>
+                                            }
+                                        }
+                                    }
+                                }
+
+                                <a asp-action="ViewFoodDetails"
+                                   asp-route-sortOrder="@ViewBag.sortOrder"
+                                   asp-route-page=@(Model.PageIndex + 1)
+                                   class="btn btn-info @nextDisabled">
+                                    Next
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--You may Also Like-->
+            <div class="col-md-12 text-center mt-50">
+                <h2 class="sec-heading">Related Products</h2>
+                <a asp-controller="OthersLogic" asp-action="RelatedFood" asp-route-id="@ViewBag.relatedFoodTypeId" class="a-view-all def-btn">VIEW ALL</a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="tranding">
+                <div class="owl-carousel" id="tranding">
+                    @foreach (var item in ViewBag.relatedFoods)
+                    {
+                        <div class="thumbnail no-border no-padding">
+                            <div class="media">
+                                <a class="media-link" asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@item.FoodId" data-gal="prettyPhoto">
+                                    <div class="sale-label">Sale</div>
+                                    <img src="data:image;base64, @Convert.ToBase64String(item.Image)" alt="" class="img-responsive"/>
+                                </a>
+                            </div>
+                            <div class="caption item-body">
+                                <h4 class="caption-title"><a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@item.FoodId"><b>@item.FoodName</b></a></h4>
+                                <div class="star-rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+
+                                @if (item.Discount > 0)
+                                {
+                                    <div class="price"><ins>@(item.Price - ((item.Price * item.Discount) / 100)) ৳</ins>
+                                                       <del>@item.Price ৳</del></div>
+                                }
+                                else
+                                {
+                                    <div class="price"><ins>@item.Price ৳</ins> </div>
+                                }
+
+                                    <div class="buy-hover"> <a asp-controller="OthersLogic" asp-action="SingleFoodOrder" asp-route-id="@item.FoodId">add to cart <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-shopping-cart" aria-hidden="true" data-original-title="Add to Cart"></i> </a> </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

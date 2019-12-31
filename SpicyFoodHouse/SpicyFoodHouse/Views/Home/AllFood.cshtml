@@ -1,0 +1,241 @@
+﻿
+
+@model PaginatedList<SpicyFoodHouse.Models.Food>
+
+@{
+    ViewData["Title"] = "AllFood";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+    int serialNo = 1;
+}
+
+
+<div class="margin-from-top-in-Others-client-view"></div>
+
+<div class="container">
+
+    <form asp-controller="Home" asp-action="AllFood" method="post" class="form-inline">
+
+        <div class="form-group">
+            <input type="text" name="srctext" class="form-control" placeholder=" Search in word...."/>
+            <select name="sortId" class="form-control">
+                <option value="0">----Sort order by----</option>
+                <option value="1"> Trending Food</option>
+                <option value="2"> Popular Food</option>
+                <option value="3"> Discounted Food</option>
+            </select>
+            <select name="foodTypeId" class="form-control">
+                <option value="0">----Sort by food types----</option>
+                @foreach (var item in ViewBag.foodTypeList)
+                {
+                    <option value="@item.TypeId">@item.TypeName</option>
+                }
+            </select>
+            <input id="src-btn" type="submit" class="btn btn-success" value="Search"/>
+        </div>
+        <div class="form-group">
+            <h4 class="text-danger">Total result : @ViewBag.totalCount</h4>
+        </div>
+    </form>
+    <br/><br/>
+    <table class="table table-bordered table-hover table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>
+                No.
+            </th>
+            <th>
+                Food Name
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                Food Type
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Available
+            </th>
+            <th>
+                Discount
+            </th>
+            <th>
+                Is Trending
+            </th>
+            <th>
+                Is Popular
+            </th>
+            <th>
+                Is Discounted
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @serialNo
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodName)
+                </td>
+                <td>
+                    <img src="data:image;base64, @Convert.ToBase64String(item.Image)" class="img-responsive" width="50px" height="50px"/>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodType.TypeName)
+                </td>
+                <td>
+                    @if (item.Discount > 0)
+                    {
+                        <p> @(item.Price - ((item.Price * item.Discount) / 100)) ৳ </p>
+                        <del> @item.Price ৳</del>
+
+                    }
+                    else
+                    {
+                        <p> @item.Price ৳</p>
+                    }
+                </td>
+                <td>
+                    @if (@Convert.ToInt32(item.AvailableInStock) > 0)
+                    {
+                        <i class="fas fa-check"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-times"></i>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount)%
+                </td>
+                <td>
+                    @if (item.IsTranding == true)
+                    {
+                        <i class="fas fa-check"></i>
+                    }
+                    else if (item.IsTranding == false)
+                    {
+                        <i class="fas fa-times"></i>
+                    }
+                </td>
+                <td>
+                    @if (item.IsPopular == true)
+                    {
+                        <i class="fas fa-check"></i>
+                    }
+                    else if (item.IsPopular == false)
+                    {
+                        <i class="fas fa-times"></i>
+                    }
+                </td>
+                <td>
+                    @if (item.IsDiscounted == true)
+                    {
+                        <i class="fas fa-check"></i>
+                    }
+                    else if (item.IsDiscounted == false)
+                    {
+                        <i class="fas fa-times"></i>
+                    }
+                </td>
+                <td>
+                    <a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@item.FoodId" class="btn btn-info glyphicon glyphicon-eye-open"></a>
+
+                    <a asp-controller="OthersLogic" asp-action="SingleFoodOrder" asp-route-id="@item.FoodId" class="btn btn-danger glyphicon glyphicon-shopping-cart"></a>
+                </td>
+            </tr>
+            serialNo++;
+        }
+        </tbody>
+    </table>
+    <br/>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <a asp-action="AllFood"
+       asp-route-sortOrder="@ViewBag.sortOrder"
+       asp-route-page=@(Model.PageIndex - 1)
+       class="btn btn-info @prevDisabled">Previous</a>
+
+    @{
+        var start = cp - 5;
+        var end = cp + 5;
+        for (int j = start; j <= end; j++)
+        {
+            if (j > 0 && j <= tp)
+            {
+                if (cp == j)
+                {
+                    <a asp-action="AllFood"
+                       asp-route-sortOrder="@ViewBag.sortOrder"
+                       asp-route-page=@j
+                       class="btn btn-danger @nextDisabled">@j</a>
+                }
+                else
+                {
+                    <a asp-action="AllFood"
+                       asp-route-sortOrder="@ViewBag.sortOrder"
+                       asp-route-page=@j
+                       class="btn btn-info @nextDisabled">@j</a>
+                }
+            }
+        }
+    }
+
+    <a asp-action="AllFood"
+       asp-route-sortOrder="@ViewBag.sortOrder"
+       asp-route-page=@(Model.PageIndex + 1)
+       class="btn btn-info @nextDisabled">
+        Next
+    </a>
+</div>
+
+
+<section>
+    <div class="container">
+        <div role="tabpanel" class="tab-pane" id="comment-section-id">
+            <div class="leave-comt">
+                <h2 class="content-subhead">LEAVE A COMMENT</h2>
+                <p>Your email address will not be published.</p>
+                <form asp-controller="OthersLogic" asp-action="Comment" method="post">
+                    <div class="contact-form">
+                        <div class="row text-center">
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-10" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="First Name">First Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-11" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Last Name">Last Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 input-position">
+                                <span class="input input--yoshiko">
+                                    <textarea class="input__field input__field--yoshiko" id="input-12" name="commentText"></textarea>
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Message">Message</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 submit-button"><input type="submit" value="Submit" class="def-btn lg-btn" /> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

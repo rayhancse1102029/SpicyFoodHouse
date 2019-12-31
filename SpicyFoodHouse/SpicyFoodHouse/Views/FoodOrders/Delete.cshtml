@@ -1,0 +1,178 @@
+﻿@model SpicyFoodHouse.Models.FoodOrder
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FoodOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FoodName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfFood)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfFood)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeId2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeId2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodName2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FoodName2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfFood2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfFood2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.QuarterId2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuarterId2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeId3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeId3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodName3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FoodName3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfFood3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfFood3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.QuarterId3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuarterId3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubTotalPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubTotalPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastFiveDigit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastFiveDigit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPaid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsPaid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSeen)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsSeen)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdatedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdatedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodQuarter)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FoodQuarter.QuarterName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FoodType.TypeName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentMethod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PaymentMethod.PaymentMethodName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OrderId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,10 @@
+﻿
+
+.jumbotron {
+    background: whitesmoke;
+}
+
+#comment-section-id {
+    border: 1px solid whitesmoke;
+    padding: 20px;
+}

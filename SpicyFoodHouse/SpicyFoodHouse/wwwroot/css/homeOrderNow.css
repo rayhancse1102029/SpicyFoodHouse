@@ -1,0 +1,60 @@
+﻿
+
+
+ #myInput {
+     height: 42px;
+     padding-left: 20px;
+     padding-right: 20px;
+ }
+
+ select {
+     padding-left: 35px;
+     padding-right: 35px;
+ }
+
+ thead {
+     background: gold;
+     font-weight: bold;
+     /*font-size: 17px;*/
+     text-align: center;
+ }
+
+ table {
+     text-align: center;
+ }
+
+ .fa-check {
+     color: dodgerblue;
+ }
+
+ .fa-times {
+     color: red;
+ }
+ #order-now-marquee-id {
+     margin-top: 18px;
+     height: 80px;
+     background: whitesmoke;
+     color: dodgerblue;
+ }
+ .maquee-padding-cls {
+     padding-left: 200px;
+ }
+ #order-now-section {
+     margin-top: 20px;
+ }
+ #order-now-table-id {
+     border: 2px solid wheat;
+     padding: 20px;
+ }
+ #order-now-multiple-order-form {
+     border: 2px solid wheat;
+     padding: 20px;
+     margin-left: 5px;
+ }
+
+ .order-item-info-show-link-cls {
+     font-size: 15px;
+ }
+ .modal-title {
+     color: cornflowerblue;
+ }

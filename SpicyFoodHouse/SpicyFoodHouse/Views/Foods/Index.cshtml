@@ -1,0 +1,151 @@
+﻿@model PaginatedList<SpicyFoodHouse.Models.Food>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+    int i = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-controller="OthersLogic" asp-action="UpdateAvailableInStocks" class="btn btn-primary">Update Stocks</a>
+</p>
+<table class="table table-striped table-bordered table-hover table-responsive">
+    <thead>
+        <tr>
+                <th>
+                    Food Name
+                </th>
+                <th>
+                    Image
+                </th>
+
+                <th>
+                   Price
+                </th>
+                <th>
+                    AvailableInStock
+                </th>
+                <th>
+                   Discount
+                </th>
+                <th>
+                    IsTranding
+                </th>
+                <th>
+                    IsPopular
+                </th>
+                <th>
+                    IsDiscounted
+                </th>
+                <th>
+                    Manager Signature
+                </th>
+                <th>
+                    Entry Date
+                </th>
+                <th>
+                    Last Updated Date
+                </th>
+            <th>
+                Food Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodName)
+            </td>
+            <td>
+                <img src="data:image;base64, @Convert.ToBase64String(item.Image)" class="img-responsive" width="50px" height="50px"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableInStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsTranding)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPopular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDiscounted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManagerSignature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodType.TypeName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FoodId" class="btn btn-info glyphicon glyphicon-pencil">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.FoodId" class="btn btn-success glyphicon glyphicon-eye-open">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.FoodId" class="btn btn-danger glyphicon glyphicon-trash">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewBag.sortOrder"
+       asp-route-page=@(Model.PageIndex - 1)
+       class="btn btn-info @prevDisabled">Previous</a>
+
+    @{
+        var start = cp - 5;
+        var end = cp + 5;
+        for (int j = start; j <= end; j++)
+        {
+            if (j > 0 && j <= tp)
+            {
+                if (cp == j)
+                {
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewBag.sortOrder"
+                       asp-route-page=@j
+                       class="btn btn-danger @nextDisabled">@j</a>
+                }
+                else
+                {
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewBag.sortOrder"
+                       asp-route-page=@j
+                       class="btn btn-info @nextDisabled">@j</a>
+                }
+            }
+        }
+    }
+
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewBag.sortOrder"
+       asp-route-page=@(Model.PageIndex + 1)
+       class="btn btn-info @nextDisabled">
+        Next
+    </a>
+</div>

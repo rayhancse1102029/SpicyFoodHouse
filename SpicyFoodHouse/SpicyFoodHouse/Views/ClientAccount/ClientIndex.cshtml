@@ -1,0 +1,160 @@
+﻿
+
+@model PaginatedList<SpicyFoodHouse.Models.FoodOrder>
+
+
+@{
+    ViewData["Title"] = "ClientIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+
+    int index = 1;
+}
+
+<style>
+    .client-account-left-side-bar-col-cls {
+        border: 2px solid whitesmoke;
+        margin: 20px;
+        text-align: center;
+    }
+    .client-account-right-side-col-cls {
+        border: 2px solid whitesmoke;
+    }
+    .client-account-right-side-col-cls h2 {
+
+        background: whitesmoke;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 30px;
+    }
+    .profile-cls {
+
+        margin-top: 40px;
+    }
+    .profile-cls img {
+        margin: auto;
+    }
+    .order-list-table-div {
+
+        margin: 2px;
+    }
+</style>
+
+<div class="margin-from-top-in-Others-client-view"></div>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 client-account-left-side-bar-col-cls">
+                @foreach (var item in ViewBag.UserInfo)
+                {
+                    <div class="profile-cls">
+                        <img src="data:image;base64, @Convert.ToBase64String(item.ProfileImage)" class="img-responsive" width="150px" height="150px"/>
+                    </div>
+                    <div class="">
+                        <h3>
+                            <b>@item.CustomerName</b>
+                        </h3>
+                        <a>@item.Email</a>
+                        <h4>+880 - @item.Phone</h4>
+                        <p>@item.Address</p>
+                    </div>
+
+                    <br/>
+                    <a asp-controller="ClientAccount" asp-action="UpdateClientAccount" class="btn btn-info">Update profile</a><br/><br/>
+
+                }
+               
+            </div>
+            
+            <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+
+            </div>           
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 client-account-right-side-col-cls">
+                <h2>Your Order List </h2>
+                <div class="order-list-table-div">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Food Name</th>
+                            <th>Is Accepted</th>
+                            <th>Is Rejected</th>
+                            <th>Is Paid</th>
+                            <th>Total Price</th>
+                            <th>Order Date</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@index</td>
+                                <td>@item.FoodName</td>
+                                <td>@item.IsAccepted</td>
+                                <td>@item.IsRejected</td>
+                                <td>@item.IsPaid</td>
+                                <td>@item.SubTotalPrice</td>
+                                <td>@item.OrderDate</td>
+                                <td>
+                                    <a asp-controller="FoodOrders" asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-info glyphicon glyphicon-eye-open"></a>
+                                </td>
+                            </tr>
+
+                            index++;
+                        }
+                        </tbody>
+                    </table>
+                    <div>
+                        @{
+                            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                        }
+                        <a asp-action="ClientIndex"
+                           asp-route-sortOrder="@ViewBag.sortOrder"
+                           asp-route-page=@(Model.PageIndex - 1)
+                           class="btn btn-info @prevDisabled">Previous</a>
+
+                        @{
+                            var start = cp - 5;
+                            var end = cp + 5;
+                            for (int j = start; j <= end; j++)
+                            {
+                                if (j > 0 && j <= tp)
+                                {
+                                    if (cp == j)
+                                    {
+                                        <a asp-action="ClientIndex"
+                                           asp-route-sortOrder="@ViewBag.sortOrder"
+                                           asp-route-page=@j
+                                           class="btn btn-danger @nextDisabled">@j</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="ClientIndex"
+                                           asp-route-sortOrder="@ViewBag.sortOrder"
+                                           asp-route-page=@j
+                                           class="btn btn-info @nextDisabled">@j</a>
+                                    }
+                                }
+                            }
+                        }
+
+                        <a asp-action="ClientIndex"
+                           asp-route-sortOrder="@ViewBag.sortOrder"
+                           asp-route-page=@(Model.PageIndex + 1)
+                           class="btn btn-info @nextDisabled">
+                            Next
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

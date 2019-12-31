@@ -1,0 +1,393 @@
+﻿
+@model SpicyFoodHouse.Models.FoodOrder
+
+@{
+    ViewData["Title"] = "SingleFoodOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    double price;
+}
+
+
+
+<div id="marquee-id">
+    <marquee>
+
+        <h2>
+            <b>Welcome to order confirmation page. please, scroll down and confirm your order.</b>
+        </h2>
+    </marquee>
+</div>
+
+<section>
+    <div class="container product-detail padd-50">
+        <div class="col-md-12">
+            <!-- product image -->
+            <div class="col-md-5 text-center">
+                <div class="box-zoom">
+                    <img src="data:image;base64, @Convert.ToBase64String(ViewBag.image)" alt="img missing" class="img-responsive" />
+                </div>
+            </div>
+            <!-- product image -->
+            <!-- product info -->
+            <div class="col-md-7 product-info">
+                <h2>@ViewBag.foodName</h2>
+                <div class="item-list-rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                    <a href="#"> Reviews</a>
+                </div>
+
+                <div class="price-line">
+                    @if (ViewBag.discount > 0)
+                    {
+                    <h3> @(ViewBag.price - ((ViewBag.price * ViewBag.discount) / 100)) ৳&nbsp;&nbsp;</h3>
+                    <del>@ViewBag.price ৳</del>
+                        <span>&nbsp;&nbsp; @ViewBag.discount% off</span>
+                    }
+                    else
+                    {
+                        <h3> @ViewBag.price ৳</h3>
+                    }
+
+                    @if (ViewBag.availableInStock > 0)
+                    {
+                        <p class="avail"><i class="fas fa-check"></i> In Stock</p>
+                    }
+                    else
+                    {
+                        <p class="avail" style="color: red"><i class="fas fa-times"></i><b>Sorry Out of Stock</b></p>
+                    }
+                    
+                </div>
+                <br />
+                <div class="offer">
+                    <br />
+                    <h5 id="deliveryCharge-info-id"><b>Extra Delivery Charge : @ViewBag.deliveryCharge ৳ </b></h5>
+                    <br/>
+                    <h3>Description</h3>
+                    <p>@ViewBag.description</p>
+
+                    @if (!string.IsNullOrEmpty(ViewBag.tranding))
+                    {
+                        <div class="offer-list">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <p> This is @ViewBag.tranding product. </p>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(ViewBag.popular))
+                    {
+                        <div class="offer-list">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <p> This is @ViewBag.popular product. </p>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(ViewBag.discounted))
+                    {
+                        <div class="offer-list">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <p> This is @ViewBag.discounted product. </p>
+                        </div>
+                    }
+                </div>
+
+                <!--product-about-->
+                <div class="product-about">
+                    <div class="product-about-list">
+                        <span>Food Type :</span>
+                        <p>@ViewBag.foodTypes</p>
+                    </div>
+                    <div class="product-about-list">
+                        <span>Product Code :</span>
+                        <p>#SFH+ @ViewBag.foodId</p>
+                    </div>
+                    <div class="product-about-list">
+                        <span>Tags :</span>
+                        <p>Fast food, Chinese food.</p>
+                    </div>
+                </div>
+
+                <!--Color-var-->
+                <div class="size-var">
+                    <span><b>Quarter :</b></span>
+                    <ul>
+                        <li class="half-quarter-info-cls"><a>Half</a></li>
+                        <li class="full-quarter-info-cls"><a>Full</a></li>
+                        <li class="double-quarter-info-cls"><a>Double</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="quantity-box">
+                    <span>Quantity</span>
+                    <div class="clearfix"></div>
+                    <div id="field1">
+                        <input type="button" id="1" value=1 class="field food-qulity">
+                    </div>
+
+                    <div>
+                        <button class="btn btn-success" id="order-now-btn-id"><b>Confirm Order</b></button>
+                    </div>
+
+                    <div class="col-md-7">
+                        <form id="single-order-form" class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="TypeId" type="hidden" value="@ViewBag.fooTypeId"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="FoodName" type="hidden" value="@ViewBag.foodName"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="Price" type="hidden" value="@ViewBag.price"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="NumberOfFood" type="text" id="number-of-food" class="form-control" placeholder="  enter number of foods"/>
+                                    <label id="number-of-food-error-msg-id"></label>
+                                    <span asp-validation-for="NumberOfFood" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <select asp-for="QuarterId" id="quarter-select-id" class="form-control">
+                                        <option value="0">---- Select Food Quarter----</option>
+                                        @foreach (var item in ViewBag.quarterList)
+                                        {
+                                            <option value="@item.QuarterId">@item.QuarterName</option>
+                                        }
+                                    </select>
+                                    <label id="quarter-select-error-msg-id"></label>
+                                </div>
+                            </div>
+                            <div>
+                                <label id="total-price-show-label"> </label>
+                                <label id="deliveryCharge-info-id-two"> </label>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="reset" id="confirm-order-btn-id" class="btn btn-success">Confirm Order</button>
+                                    <button id="cancel-order-btn-id" class="btn btn-danger">Cancel Order</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            
+            $("#single-order-form").hide();
+
+            $("#order-now-btn-id").click(function() {
+
+                $("#single-order-form").show();
+                $("#order-now-btn-id").hide();
+
+            });
+
+            $("#cancel-order-btn-id").click(function() {
+
+                $("#single-order-form").hide();
+
+            });
+
+            $("#number-of-food").keyup(function() {
+
+                var numberOfFood = $("#number-of-food").val();
+                var value = $("#quarter-select-id").val();
+
+                if (numberOfFood <= 0) {
+
+                    $("#number-of-food-error-msg-id").text("Number of food length must be grater than 0").css("color","red");
+                }
+                if (numberOfFood > 0) {
+                    $("#number-of-food-error-msg-id").text("");
+                }
+
+                if (value > 0) {
+
+                    var total;
+
+                    @if (ViewBag.discount > 0) {
+
+                         price = (ViewBag.price - ((ViewBag.price * ViewBag.discount) / 100));
+
+                    }
+                    else
+                    {
+                        price = ViewBag.price;
+                    }
+
+                    if ( value == 1) {
+
+                        total = ((@price * numberOfFood) * 0.5);
+
+                        if (numberOfFood > 0) {
+                            $("#total-price-show-label").text("Total Price : " + total + " ৳");
+
+                            $("#deliveryCharge-info-id-two").text("Extra " + @ViewBag.deliveryCharge +" ৳ add with bill for delivery service.").css("color","red");
+                        }
+
+                    }
+                    else if (value == 2)
+                    {
+                        total = (@price * numberOfFood);   
+
+                        if (numberOfFood > 0) {
+                            $("#total-price-show-label").text("Total Price : " + total + " ৳");
+
+                            $("#deliveryCharge-info-id-two").text("Extra " + @ViewBag.deliveryCharge +" ৳ add with bill for delivery service.").css("color", "red");
+
+                        }
+                    }
+                    else if(value == 3)
+                    {
+                        total = ((@price * numberOfFood) * 2);
+
+                        if (numberOfFood > 0) {
+                            $("#total-price-show-label").text("Total Price : " + total + " ৳");
+
+                            $("#deliveryCharge-info-id-two").text("Extra " + @ViewBag.deliveryCharge +" ৳ add with bill for delivery service.").css("color","red");
+                        }
+                    }
+                }
+
+
+            });
+
+            $("#quarter-select-id").change(function() {
+
+                var value = $("#quarter-select-id").val();
+                var numberOfFood = $("#number-of-food").val();
+                var total;
+
+               
+                @if (ViewBag.discount > 0) {
+
+                    price = (ViewBag.price - ((ViewBag.price * ViewBag.discount) / 100));
+
+                }
+                else
+                {
+                    price = ViewBag.price;
+                }
+
+                
+                if (value == 0) {
+                    $("#quarter-select-error-msg-id").text("You must be select a Quaeter type.").css("color", "red");
+                    $("#total-price-show-label").text("");
+
+                    $("#deliveryCharge-info-id-two").text("");
+                }
+                else if ( value == 1) {
+
+                    total = ((@price * numberOfFood) * 0.5);
+
+                    if (numberOfFood > 0) {
+                        $("#total-price-show-label").text("Total Price : " + total + " ৳");
+
+                        $("#deliveryCharge-info-id-two").text("Extra " + @ViewBag.deliveryCharge +" ৳ add with bill for delivery service.").css("color","red");
+                    }
+
+                }
+                else if (value == 2)
+                {
+                    total = (@price * numberOfFood);   
+
+                    if (numberOfFood > 0) {
+                        $("#total-price-show-label").text("Total Price : " + total + " ৳");
+
+                        $("#deliveryCharge-info-id-two").text("Extra " + @ViewBag.deliveryCharge +" ৳ add with bill for delivery service.").css("color","red");
+                    }
+                }
+                else if(value == 3)
+                {
+                    total = ((@price * numberOfFood) * 2);
+
+                    if (numberOfFood > 0) {
+                        $("#total-price-show-label").text("Total Price : " + total + " ৳");
+
+                        $("#deliveryCharge-info-id-two").text("Extra " + @ViewBag.deliveryCharge +" ৳ add with bill for delivery service.").css("color","red");
+                    }
+                }
+
+            });
+
+            $("#confirm-order-btn-id").click(function() {
+                
+                var formData = $("#single-order-form").serialize();
+                var numberOfFood = $("#number-of-food").val();
+                var value = $("#quarter-select-id").val();
+
+
+                if (numberOfFood == null || value <= 0) {
+
+                    swal("Sorry!", "Invalid input data please try again !!!", "error");
+
+                }
+                else {
+                    $.ajax({
+                        type: "post",
+                        url: "/OthersLogic/SingleFoodOrder",
+                        data: formData,
+                        success: function (response) {
+
+                            if (response == "unauthorize") {
+
+                                window.location.href = "/Account/Login";
+                            }
+                            else if (response == "notAvailable") {
+
+                                swal("Sorry!", "Sorry This food are not Available please try another food !!!", "error");
+                            
+                            }
+                            else if (response == "success") {
+
+                                $("#single-order-form").hide();
+                                swal("Thanks!", "Your order process successful !!! \n we will deliver as soon as possible within one hour !!!", "success");
+
+                            
+                            }
+                            else if (response == "nothing") {
+
+                                swal("Sorry!", "Something is wrong please try again !!!", "error");
+                            }
+                            else if (response == "unvalid") {
+
+                                swal("Sorry!", "Invalid input data please try again !!!", "error");
+                            }
+                            else
+                            {
+                                swal("Sorry!", "Something is wrong please try again !!!", "error");
+                            }
+                        }
+                    });
+                    // end ajax
+                }
+                // end if
+               
+            });
+
+
+
+
+            // end document 
+        });
+        
+    </script>
+}

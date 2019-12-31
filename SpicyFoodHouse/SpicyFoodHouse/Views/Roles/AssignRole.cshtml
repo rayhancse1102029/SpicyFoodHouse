@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "AssignRole";
+    Layout = "AdminLayout";
+}
+
+
+<section class="admin">
+    <h2 class="alert alert-info info-message">Assign Role Panel</h2><br />
+    <div class="row">
+        <div class="col-md-8 col-lg-offset-2">
+            <div><h4 class="text-primary">@ViewBag.msg</h4></div>
+            <form class="form-inline" asp-controller="Roles" asp-action="AssignRole" method="post">
+                <label>User Email :</label>
+                <input type="text" class="form-control" name="useremail" value="" placeholder="Please type role name..." />
+                <select class="form-control" name="rname">
+                    <option value="">----Select Role----</option>
+                    @foreach (var item in ViewBag.roles)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+                <input type="submit" class="form-control btn btn-success create-btn" value="Assign Role" />
+            </form>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,33 @@
+﻿
+
+#myInput {
+    height: 42px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+select {
+    padding-left: 35px;
+    padding-right: 35px;
+}
+thead {
+    background: gold;
+    font-weight: bold;
+    /*font-size: 17px;*/
+    text-align: center;
+}
+table {
+    text-align: center;
+}
+.fa-check {
+    color: dodgerblue;
+}
+.fa-times {
+    color: red;
+}
+
+#comment-section-id {
+
+    margin-top: 50px;
+    border: 2px solid whitesmoke;
+    padding: 20px;
+}

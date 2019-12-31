@@ -1,0 +1,254 @@
+﻿@{
+//ViewData["Title"] = "Home Page";
+}
+
+
+<div class="margin-from-top-in-index"></div>
+
+<!--main-slider-->
+
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/images/Slider-One.jpg" alt="slider img missing!!!" class="img-responsive" />
+            <div class="carousel-caption" role="option">
+
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/images/Slider-Two.jpg" alt="slider img missing!!!" class="img-responsive" />
+            <div class="carousel-caption" role="option">
+                <h1 class="animated fadeInLeft"><b>We Are Best In Cumilla</b></h1>
+                <h3 class="animated fadeInRight"><b>Bangladesh</b></h3>
+                <a asp-controller="Home" asp-action="About" class="btn btn-default animated rotateIn slider-btn"><b>Read more!</b></a>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/images/Slider-Three.jpg" alt="slider img missing!!!" class="img-responsive" />
+            <div class="carousel-caption" role="option">
+                <h1 class="animated fadeInLeft"><b>You Can Try Our Food &</b></h1>
+                <h3 class="animated fadeInRight"><b>Feel Different</b></h3>
+                <a asp-controller="Home" asp-action="About" class="btn btn-default animated rotateIn slider-btn"><b>Read more!</b></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ad or offer section -->
+<div class="container" id="index-page-ads-one">
+    <div class="row">
+        <img class="ad-img" src="assests/img/index/ad.png">
+    </div>
+</div>
+<!-- ad or offer section -->
+<!-- second menu -->
+<div class="container" id="menu-under-ads">
+    <div class="">
+        <div class="second-menu">
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-basket" aria-hidden="true"></i> </span>Burger
+                </button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-bag" aria-hidden="true"></i> </span>Noodles
+                </button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-cart" aria-hidden="true"></i> </span>Fride Rice
+                </button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-basket" aria-hidden="true"></i> </span>Chicken
+                </button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-bag" aria-hidden="true"></i> </span>Ice Cream
+                </button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-bag" aria-hidden="true"></i> </span>Soup
+                </button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-bag" aria-hidden="true"></i> </span>Pizza
+                </button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="fa fa-shopping-cart" aria-hidden="true"></i> </span>Special Item
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--trending product-->
+<div class="container padd-80">
+    <div class="text-center">
+        <h2 class="sec-heading">TRENDING  PRODUCTS</h2>
+        <a asp-controller="OthersLogic" asp-action="ViewAllFood" asp-route-id="1" class="a-view-all def-btn">VIEW ALL</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="tranding">
+        <div class="owl-carousel" id="tranding">
+
+            @if (ViewBag.trandingFoodList != null)
+            {
+                @foreach (var foodItems in ViewBag.trandingFoodList)
+                {
+                    <div class="thumbnail no-border no-padding">
+                        <div class="media">
+                            <a class="media-link" data-gal="prettyPhoto">
+                                <div class="sale-label">Sale</div>
+                                <img src="data:image;base64, @Convert.ToBase64String(foodItems.Image)" class="img-responsive" alt="" /> <span class="quick" data-toggle="modal" data-target="#myModalquick"> </span>
+                            </a>
+                        </div>
+                        <div class="caption item-body">
+                            <h4 class="caption-title"><a asp-controller="OthersLogic" asp-action="ViewFoodDetails"  asp-route-id="@foodItems.FoodId"><b>@foodItems.FoodName</b></a><a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@foodItems.FoodId" class="btn btn-default item-btn-cls">Details</a></h4>
+                            <div class="star-rating"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> </div>
+                            
+                        <div class="price"><ins> @foodItems.Price ৳</ins></div>
+                            
+
+                            <div class="buy-hover"> <a asp-controller="OthersLogic" asp-action="SingleFoodOrder" asp-route-id="@foodItems.FoodId">add to cart <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-shopping-cart" aria-hidden="true" data-original-title="Add to Cart"></i> </a> </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+
+</div>
+
+<!--popular product-->
+
+<div class="container padd-80">
+    <div class="text-center">
+        <h2 class="sec-heading">POPULAR  PRODUCTS</h2>
+        <a asp-controller="OthersLogic" asp-action="ViewAllFood" asp-route-id="2" class="a-view-all def-btn">VIEW ALL</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="tranding">
+        <div class="owl-carousel owl-theme">
+
+            @if (ViewBag.popularFoodList != null)
+            {
+                @foreach (var foodItems in ViewBag.popularFoodList)
+                {
+                    <div class="thumbnail no-border no-padding item">
+                        <div class="media">
+                            <a class="media-link" data-gal="prettyPhoto">
+                                <div class="sale-label">Sale</div>
+                                <img src="data:image;base64, @Convert.ToBase64String(foodItems.Image)" class="img-responsive" alt="" /> <span class="quick" data-toggle="modal" data-target="#myModalquick"> </span>
+                            </a>
+                        </div>
+                        <div class="caption item-body">
+                            <h4 class="caption-title"><a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@foodItems.FoodId"><b>@foodItems.FoodName</b></a><a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@foodItems.FoodId" class="btn btn-default item-btn-cls">Details</a></h4>
+                            <div class="star-rating"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> </div>
+                            
+                        <div class="price"><ins> @foodItems.Price ৳</ins></div>
+
+                            <div class="buy-hover"> <a asp-controller="OthersLogic" asp-action="SingleFoodOrder" asp-route-id="@foodItems.FoodId">add to cart <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-shopping-cart" aria-hidden="true" data-original-title="Add to Cart"></i> </a> </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+
+</div>
+
+<!--discounted product-->
+
+<div class="container padd-80">
+    <div class="text-center">
+        <h2 class="sec-heading">Discounted  PRODUCTS</h2>
+        <a asp-controller="OthersLogic" asp-action="ViewAllFood" asp-route-id="3" class="a-view-all def-btn">VIEW ALL</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="tranding">
+        <div class="owl-carousel owl-theme">
+
+            @if (ViewBag.discountedFoodList != null)
+            {
+                @foreach (var foodItems in ViewBag.discountedFoodList)
+                {
+                    <div class="thumbnail no-border no-padding item">
+                        <div class="media">
+                            <a class="media-link" data-gal="prettyPhoto">
+                                <div class="sale-label">Sale</div>
+                                <img src="data:image;base64, @Convert.ToBase64String(foodItems.Image)" class="img-responsive" alt="" /> <span class="quick" data-toggle="modal" data-target="#myModalquick"> </span>
+                            </a>
+                        </div>
+                        <div class="caption item-body">
+                            <h4 class="caption-title"><a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@foodItems.FoodId"><b>@foodItems.FoodName</b></a><a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@foodItems.FoodId" class="btn btn-default item-btn-cls">Details</a></h4>
+                            <div class="star-rating"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> </div>
+                            @if (foodItems.Discount > 0)
+                            {
+                                <div class="price">
+                                    <ins> @(foodItems.Price - ((foodItems.Price * foodItems.Discount) / 100)) ৳</ins>
+
+                                    <del>@foodItems.Price ৳</del>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="price"><ins>@foodItems.Price ৳</ins></div>
+                            }
+
+                            <div class="buy-hover"> <a asp-controller="OthersLogic" asp-action="SingleFoodOrder" asp-route-id="@foodItems.FoodId">add to cart <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-shopping-cart" aria-hidden="true" data-original-title="Add to Cart"></i> </a> </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+
+</div>
+
+<!--service-->
+
+<div class="container service-sec padd-60">
+    <div class="col-sm-6 col-md-4 service-box">
+        <div class="col-md-12 service text-center">
+            <img src="assests/img/service/service.png" alt="" />
+            <h2>100% Trusted service</h2>
+            <p>100% Payment Protection. Easy return policy</p>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 service-box">
+        <div class="col-md-12 service text-center">
+            <img src="assests/img/service/delievery.png" alt="" />
+            <h2>FREE SHIPPING & RETURN</h2>
+            <p>Free shipping on all orders over ৳99, Easy return policy</p>
+        </div>
+    </div>
+    <div class="col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-4 service-box">
+        <div class="col-md-12 service text-center">
+            <img src="assests/img/service/support.png" alt="" />
+            <h2>24/7 Support</h2>
+            <p>Got a question? Look no further, Contact or submit your query here.</p>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+

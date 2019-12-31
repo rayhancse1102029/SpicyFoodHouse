@@ -1,0 +1,109 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@model SpicyFoodHouse.PaginatedList<SpicyFoodHouse.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "GetAllUser";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 1;
+    int id = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+}
+<style>
+    .admin {
+        margin-top: 50px;
+    }
+</style>
+
+<section class="admin">
+    <div>
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group">
+                <input id="myInput" type="text" name="srctext" class="form-control" value="@ViewBag.srctext" placeholder=" Search in word...." />
+                <input id="src-btn" type="submit" class="btn btn-success" value="Search" />
+            </div>
+            <div class="form-group">
+                <h4 class="text-danger">Total result : @ViewBag.TotalCount</h4>
+            </div>
+        </form>
+    </div>
+    <br />
+    <div>
+        <table class="table table-bordered table-responsive">
+
+            <thead>
+                <tr>
+                    <th>Serial No.</th>
+                    <th>Customer Name</th>
+                    <th>Email</th>
+                    <th>Profile</th>
+                    <th>Nid/Birth</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@id</td>
+                        <td>@item.CustomerName</td>
+                        <td>@item.Email</td>
+                        <td><img src="data:image;base64, @Convert.ToBase64String(item.ProfileImage)" width="80px" height="80px;" /></td>
+                        <td><img src="data:image;base64, @Convert.ToBase64String(item.NidOrBith)" width="80px" height="80px;" /></td>
+                    </tr>
+                </tbody>
+
+                id++;
+            }
+
+        </table>
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewBag.sortOrder"
+           asp-route-page=@(Model.PageIndex - 1)
+           class="btn btn-info @prevDisabled">Previous</a>
+
+        @{
+            var start = cp - 5;
+            var end = cp + 5;
+            for (int j = start; j <= end; j++)
+            {
+                if (j > 0 && j <= tp)
+                {
+                    if (cp == j)
+                    {
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewBag.sortOrder"
+                           asp-route-page=@j
+                           class="btn btn-danger @nextDisabled">@j</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewBag.sortOrder"
+                           asp-route-page=@j
+                           class="btn btn-info @nextDisabled">@j</a>
+                    }
+                }
+            }
+        }
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewBag.sortOrder"
+           asp-route-page=@(Model.PageIndex + 1)
+           class="btn btn-info @nextDisabled">
+            Next
+        </a>
+
+    </div>
+</section>

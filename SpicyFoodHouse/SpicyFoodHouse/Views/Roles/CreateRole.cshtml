@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "AdminLayout";
+}
+
+
+
+<section class="admin">
+    <h2 class="alert alert-info info-message">Create Role Panel</h2><br />
+
+    <div class="row">
+        <div class="col-md-4 col-lg-offset-4">
+            <div><h4 style="color:whitesmoke;">@ViewBag.msg</h4></div>
+            <form class="form-inline" asp-controller="Roles" asp-action="CreateRole" method="post">
+                <label>Role :</label>
+                <input type="text" class="form-control" name="rolename" value="" placeholder="Please type role name..." />
+                <input type="submit" class="form-control btn btn-success create-btn" value="Create Role" />
+            </form>
+        </div>
+    </div>
+</section>

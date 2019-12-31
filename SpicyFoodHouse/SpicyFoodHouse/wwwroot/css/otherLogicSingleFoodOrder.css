@@ -1,0 +1,53 @@
+﻿
+
+   #marquee-id {
+       margin-top: 35px;
+       height: 80px;
+       background: whitesmoke;
+       color: dodgerblue;
+   }
+   .maquee-padding-cls {
+       padding-left: 200px;
+   }
+   .food-qulity {
+       background: none;
+   }
+
+   .box-zoom img {
+       border: 40px solid whitesmoke;
+   }
+   #deliveryCharge-info-id {
+       color: red;
+   }
+   .half-quarter-info-cls a:hover, .full-quarter-info-cls a:hover, .double-quarter-info-cls a:hover {
+
+       cursor: pointer;
+   }
+   #single-order-form {
+
+       margin-top: 20px;
+       margin-left: 30px;
+       padding: 0 30px 15px 30px;
+       border: 2px solid whitesmoke;
+   }
+   #order-now-btn-id {
+       padding: 12px;
+       margin-left: 10px;
+       margin-top: 20px;
+       border-radius: 0;
+       color: black;
+   }
+   #confirm-order-btn-id {
+       padding: 12px;
+       border-radius: 0;
+       color: black;
+       float: right;
+       margin-right: 12px;
+       font-weight: bold;
+   }
+   #cancel-order-btn-id {
+       padding: 12px 13px 12px 13px;
+       border-radius: 0;
+       font-weight: bold;
+       margin-left: 20px;
+   }

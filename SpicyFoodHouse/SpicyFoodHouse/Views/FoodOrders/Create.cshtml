@@ -1,0 +1,274 @@
+﻿@model SpicyFoodHouse.Models.FoodOrder
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+}
+
+<style>
+    .form-group input, .form-group select {
+
+        height: 50px;
+        border-radius: 0;
+    }
+    .margin-from-section {
+        margin-top: 50px;
+    }
+    .order-form {
+        border: 2px solid whitesmoke;
+        padding: 30px 50px 50px 50px;
+    }
+    .order-form h2 {
+        color:black;
+    }
+    #order-two-id label{
+        color:lime;
+    }
+    #order-three-id label {
+        color:blue;
+    }
+    #order-btn-id {
+        float: right;
+    }
+    #add-another-food-btn-msg {
+        color: red;
+    }
+</style>
+
+<section class="margin-from-section">
+    <form asp-action="Create" class="order-form">
+        <h2><b>Thanks for Order Your Favorite Food</b></h2>
+        <h4><b>You can order Multiple food by clicking the <span id="add-another-food-btn-msg"> "Add Another Food to Order" </span> Button</b></h4><hr/><br/>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="TypeId" class="control-label"></label>
+                    <select asp-for="TypeId" class="form-control">
+                        <option value="0">------ Select Food Item  ------</option>
+                        @foreach (var item in ViewBag.foodItemType)
+                        {
+                            <option value="@item.TypeId">@item.TypeName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FoodName" class="control-label"></label>
+                    <select asp-for="FoodName" class="form-control">
+                        <option value="0">------ Select Food ------</option>
+                        @foreach (var item in ViewBag.foods)
+                        {
+                            <option value="@item.FoodName">@item.FoodName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NumberOfFood" class="control-label"></label>
+                    <input asp-for="NumberOfFood" class="form-control" />
+                    <span asp-validation-for="NumberOfFood" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="QuarterId" class="control-label"></label>
+                    <select asp-for="QuarterId" class="form-control">
+                        <option value="0">------ Select Food Quarter ------</option>
+                        @foreach (var item in ViewBag.foodQuarters)
+                        {
+                            <option value="@item.QuarterId">@item.QuarterName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalPrice" class="control-label"></label>
+                    <input asp-for="TotalPrice" class="form-control" />
+                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" id="order-two-id">
+            <hr />
+            <h3>Complete this form for 2nd food.</h3>
+            <hr />
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="TypeId2" class="control-label"></label>
+                    <select asp-for="TypeId2" class="form-control">
+                        <option value="0">------ Select Food Item  ------</option>
+                        @foreach (var item in ViewBag.foodItemType)
+                        {
+                            <option value="@item.TypeId">@item.TypeName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FoodName2" class="control-label"></label>
+                    <select asp-for="FoodName2" class="form-control">
+                        <option value="0">------ Select Food ------</option>
+                        @foreach (var item in ViewBag.foods)
+                        {
+                            <option value="@item.FoodName">@item.FoodName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price2" class="control-label"></label>
+                    <input asp-for="Price2" class="form-control" />
+                    @*<span asp-validation-for="Price2" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NumberOfFood2" class="control-label"></label>
+                    <input asp-for="NumberOfFood2" class="form-control" />
+                    @*<span asp-validation-for="NumberOfFood2" class="text-danger"></span>*@
+                </div>
+                <div class="form-group">
+                    <label asp-for="QuarterId2" class="control-label"></label>
+                    <select asp-for="QuarterId2" class="form-control">
+                        <option value="0">------ Select Food Quarter ------</option>
+                        @foreach (var item in ViewBag.foodQuarters)
+                        {
+                            <option value="@item.QuarterId">@item.QuarterName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalPrice2" class="control-label"></label>
+                    <input asp-for="TotalPrice2" class="form-control" />
+                    @*<span asp-validation-for="TotalPrice2" class="text-danger"></span>*@
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" id="order-three-id">
+            <hr />
+            <h3>Complete this form for 3nd food.</h3>
+            <hr />
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="TypeId3" class="control-label"></label>
+                    <select asp-for="TypeId3" class="form-control">
+                        <option value="0">------ Select Food Item  ------</option>
+                        @foreach (var item in ViewBag.foodItemType)
+                        {
+                            <option value="@item.TypeId">@item.TypeName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FoodName3" class="control-label"></label>
+                    <select asp-for="FoodName3" class="form-control">
+                        <option value="0">------ Select Food ------</option>
+                        @foreach (var item in ViewBag.foods)
+                        {
+                            <option value="@item.FoodName">@item.FoodName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price3" class="control-label"></label>
+                    <input asp-for="Price3" class="form-control" />
+                    @*<span asp-validation-for="Price3" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NumberOfFood3" class="control-label"></label>
+                    <input asp-for="NumberOfFood3" class="form-control" />
+                    @*<span asp-validation-for="NumberOfFood3" class="text-danger"></span>*@
+                </div>
+                <div class="form-group">
+                    <label asp-for="QuarterId3" class="control-label"></label>
+                    <select asp-for="QuarterId3" class="form-control">
+                        <option value="0">------ Select Food Quarter ------</option>
+                        @foreach (var item in ViewBag.foodQuarters)
+                        {
+                            <option value="@item.QuarterId">@item.QuarterName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalPrice3" class="control-label"></label>
+                    <input asp-for="TotalPrice3" class="form-control" />
+                    @*<span asp-validation-for="TotalPrice3" class="text-danger"></span>*@
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PaymentMethodId" class="control-label"></label>
+                    <select asp-for="PaymentMethodId" class="form-control">
+                        <option value="0">------ Select Payment Method ------</option>
+                        @foreach (var item in ViewBag.paymentMethods)
+                        {
+                            <option value="@item.PaymentMethodId">@item.PaymentMethodName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastFiveDigit" class="control-label"></label>
+                    <input asp-for="LastFiveDigit" class="form-control" />
+                    @*<span asp-validation-for="LastFiveDigit" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" id="all-total-price">
+                    <label asp-for="SubTotalPrice" class="control-label"></label>
+                    <input asp-for="SubTotalPrice" class="form-control"/>
+                    @*<span asp-validation-for="SubTotalPrice" class="text-danger"></span>*@
+                </div>
+                <br/>
+                <div class="form-group form-inline" id="order-btn-id">
+                    <input type="button" value="Add Another Food to Order" id="order-another-food-id-two" class="btn btn-success" />
+                    <input type="button" value="Add Another Food to Order" id="order-another-food-id-three" class="btn btn-success" />
+                    <input type="submit" value="SUBMIT ORDER" class="btn btn-danger" />
+                </div>
+            </div>
+            
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-info"> << Back to List</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+
+            $("#order-two-id").hide();
+            $("#order-three-id").hide();
+            $("#order-another-food-id-three").hide();
+            $("#all-total-price").hide();
+
+            var i = 1;
+
+            $("#order-another-food-id-two").click(function() {
+                
+                    $("#order-two-id").show();
+                    $("#order-another-food-id-two").hide();
+                    $("#order-another-food-id-three").show();
+                    $("#all-total-price").show();
+            });
+            $("#order-another-food-id-three").click(function() {
+                
+                $("#order-three-id").show();
+                $("#order-another-food-id-three").hide();
+                $("#all-total-price").show();
+            });
+
+        });
+    </script>
+}

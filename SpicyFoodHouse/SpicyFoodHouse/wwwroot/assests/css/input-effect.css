@@ -1,0 +1,147 @@
+.input {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 1em 0;
+	width: 100%;
+	vertical-align: top;
+}
+.input-effect .input {
+		width:auto;
+		margin:0 1em;
+}
+.input-effect{
+		float:right;
+}
+.input__field {
+	position: relative;
+	display: block;
+	float: right;
+	padding: 0.8em;
+	width: 60%;
+	border: none;
+	border-radius: 0;
+	color: #aaa;
+	font-weight: 400;
+	-webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.input__field:focus {
+	outline: none;
+}
+.input__label {
+	display: inline-block;
+	float: right;
+	padding: 0 1em;
+	width: 40%;
+	color: #191919;
+	font-weight: bold;
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.input__label-content {
+	position: relative;
+	display: block;
+	padding: 1.6em 0;
+	width: 100%;
+}
+.graphic {
+	position: absolute;
+	top: 0;
+	left: 0;
+	fill: none;
+}
+.icon {
+	color: #ddd;
+	font-size: 150%;
+}
+
+/* Individual styles */
+
+/*yoshiko*/
+.input__field--yoshiko {
+	width: 100%;
+	border: 2px solid #efefef;
+	-webkit-transition: background-color 0.25s, border-color 0.25s;
+	transition: background-color 0.25s, border-color 0.25s;
+	height:50px;
+	line-height:50px;
+	color:#191919;
+	font-size:18px;
+}
+textarea.input__field--yoshiko{
+		line-height:normal;
+}
+.input__field--yoshiko input.input__label{
+		font-size:14px;
+}
+.input__label--yoshiko {
+	width: 100%;
+	text-align: left;
+	position: absolute;
+	bottom: 100%;
+	pointer-events: none;
+	overflow: hidden;
+	padding: 0 1.25em;
+	-webkit-transform: translate3d(0, 3em, 0);
+	transform: translate3d(0, 3em, 0);
+	-webkit-transition: -webkit-transform 0.25s;
+	transition: transform 0.25s;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-timing-function: ease-in-out;
+}
+.input__label-content--yoshiko {
+	padding: 0.25em 0;
+	-webkit-transition: -webkit-transform 0.25s padding .4s;
+	transition: transform 0.25s padding .4s;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-timing-function: ease-in-out;
+	font-size:14px;
+	font-weight: 400;
+}
+
+.input__label-content--yoshiko::after {
+	content: attr(data-content);
+	position: absolute;
+	font-weight: 400;
+	bottom: 100%;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	color: #bd2754;
+	padding: 0.25em 0;
+	font-size: 14px;
+}
+
+.input__field--yoshiko:focus + .input__label--yoshiko,
+.input--filled .input__label--yoshiko {
+	-webkit-transform: translate3d(0, 8px, 0);
+	transform: translate3d(0, 8px, 0);
+	padding:0;
+}
+
+.input__field--yoshiko:focus + .input__label--yoshiko .input__label-content--yoshiko,
+.input--filled .input__label-content--yoshiko {
+	-webkit-transform: translate3d(0, 100%, 0);
+	transform: translate3d(0, 100%, 0);
+}
+
+.input__field--yoshiko:focus + .input__field--yoshiko,
+.input--filled .input__field--yoshiko {
+	background-color: transparent;
+	border-color: #bd2754;
+}
+
+@media (min-width:320px) and (max-width:480px){
+
+.contact-page .input	{
+	margin-left:0;
+	margin-right:0;
+	width: calc(100% - 0em);
+}

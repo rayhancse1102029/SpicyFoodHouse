@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-SpicyFoodHouse-71DA9124-CC1D-4981-9D07-7DCFA0BDF4A9</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20191001133514_version_one.cs" />
+    <Compile Remove="Data\Migrations\20191001133514_version_one.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191002104838_version_one.cs" />
+    <Compile Remove="Data\Migrations\20191002104838_version_one.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191005173633_version_one.cs" />
+    <Compile Remove="Data\Migrations\20191005173633_version_one.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191006104152_version_one.cs" />
+    <Compile Remove="Data\Migrations\20191006104152_version_one.Designer.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Roles\AssignRole.cshtml" />
+    <None Include="Views\Roles\CreateRole.cshtml" />
+    <None Include="Views\Roles\Index.cshtml" />
+    <None Include="wwwroot\Animate_CSS\gulpfile.js" />
+    <None Include="wwwroot\Scroll_Animate\scrollreveal.min.js" />
+  </ItemGroup>
+
+</Project>

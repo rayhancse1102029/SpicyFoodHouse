@@ -1,0 +1,77 @@
+﻿
+@model ApplicationUser
+
+@{
+    ViewData["Title"] = "UpdateClientAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="margin-from-top-in-Register-Login-view"></div>
+
+<!--Registration Form-->
+
+<div class="container padd-50 cart-table">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="wrapper text-center">
+                <form class="form-signin" enctype="multipart/form-data" asp-controller="ClientAccount" asp-action="UpdateClientAccount" method="post">
+                    <h2 class="heading-product">Update your Profile</h2>
+
+                  
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="text" asp-for="CustomerName">
+                            <label class="input__label input__label--yoshiko" asp-for="CustomerName"> <span class="input__label-content input__label-content--yoshiko" data-content="Name">Name</span> </label>
+                            
+                        </span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="email" asp-for="Email">
+                            <label class="input__label input__label--yoshiko" asp-for="Email"> <span class="input__label-content input__label-content--yoshiko" data-content="Email">Email</span> </label>
+                           
+                        </span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <label asp-for="NidOrBith"></label>
+                            <input class="form-control" type="file" name="nidOrbith" placeholder="your national ID number">
+                        </span>
+                      
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <label asp-for="ProfileImage"></label>
+                            <input class="form-control" type="file" name="profileImage" placeholder="your profile image">
+                        </span>
+                       
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="text" asp-for="Phone">
+                            <label class="input__label input__label--yoshiko" asp-for="Phone"> <span class="input__label-content input__label-content--yoshiko" data-content="Phone">Phone</span> </label>
+                            
+                        </span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="text" asp-for="Address">
+                            <label class="input__label input__label--yoshiko" asp-for="Address"> <span class="input__label-content input__label-content--yoshiko" data-content="Address">Full Address</span> </label>
+                          
+                        </span>
+                    </div>
+                    <a class="submit-button def-btn lg-btn" asp-controller="ClientAccount" asp-action="ClientIndex">Cancel</a>
+                    <input class="submit-button def-btn lg-btn" type="submit" value="Update" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+

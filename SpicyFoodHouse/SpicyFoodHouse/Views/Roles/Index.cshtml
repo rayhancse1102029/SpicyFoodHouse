@@ -1,0 +1,53 @@
+﻿
+
+@{
+    ViewData["Title"] = "Gender";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+    int i = 1;
+}
+
+<section class="admin" style="margin-top: 50px;">
+    <div>
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group">
+                <a asp-action="CreateRole"  class="btn btn-danger">Create New</a>
+                <input id="myInput" type="text" name="srctext" class="form-control" value="@ViewBag.srctext" placeholder=" Search in word...." />
+                <input id="src-btn" type="submit" class="btn btn-success" value="Search" />
+            </div>
+            <div class="form-group">
+                <h4 class="text-danger">Total result : @ViewBag.TotalCount</h4>
+            </div>
+        </form>
+    </div>
+    <br />
+    <div>
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        Serial No.
+                    </th>
+                    <th>
+                       Role Name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.GetAllRoles)
+                {
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                           @item.Name
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

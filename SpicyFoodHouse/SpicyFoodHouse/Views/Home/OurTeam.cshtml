@@ -1,0 +1,338 @@
+﻿
+@{
+    ViewData["Title"] = "OurTeam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*   Team Group  *@
+
+<section>
+    <div class="team-group">
+        <div class="team-group-body">
+            <div class="team-group-body-class">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="team-member-profile" id="team-member-profile-id-one">
+                                <div class="content-two">
+                                    <img src="~/images/team-2.jpg" class="img-responsive img-circle" />
+                                    <div class="overlay-two">
+                                        <a asp-controller="" asp-action=""><i class="fab fa-twitter"></i></a>
+                                        <a class="facebook" asp-controller="" asp-action=""><i class="fab fa-facebook-f"></i></a>
+                                        <a asp-controller="" asp-action=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <h3>
+                                    <b> Bobby Young </b>
+                                </h3>
+                                <p>
+                                    <b> Senior <br /> Chef </b>
+                                </p>
+                                <button class="btn btn-default" id="team-member-profile-btn-id-one">
+                                    <b> READ MORE </b>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="team-member-profile" id="team-member-profile-id-two">
+                                <div class="content-two">
+                                    <img src="~/Images/team-4.jpg" class="img-responsive img-circle" />
+                                    <div class="overlay-two">
+                                        <a asp-controller="" asp-action=""><i class="fab fa-twitter"></i></a>
+                                        <a class="facebook" asp-controller="" asp-action=""><i class="fab fa-facebook-f"></i></a>
+                                        <a asp-controller="" asp-action=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <h3>
+                                    <b> Jose Morrison </b>
+                                </h3>
+                                <p>
+                                    <b> Senior<br /> Chef </b>
+                                </p>
+                                <button class="btn btn-default" id="team-member-profile-btn-id-two">
+                                    <b> READ MORE </b>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="team-member-profile" id="team-member-profile-id-three">
+                                <div class="content-two">
+                                    <img src="~/Images/team-3.jpg" class="img-responsive img-circle" />
+                                    <div class="overlay-two">
+                                        <a asp-controller="" asp-action=""><i class="fab fa-twitter"></i></a>
+                                        <a class="facebook" asp-controller="" asp-action=""><i class="fab fa-facebook-f"></i></a>
+                                        <a asp-controller="" asp-action=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <h3>
+                                    <b> Laura Smith </b>
+                                </h3>
+                                <p>
+                                    <b> A Chief <br /> Accountant </b>
+                                </p>
+                                <button class="btn btn-default" id="team-member-profile-btn-id-three">
+                                    <b> READ MORE </b>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="team-member-profile" id="team-member-profile-id-four">
+                                <div class="content-two">
+                                    <img src="~/Images/team-1.jpg" class="img-responsive img-circle" />
+                                    <div class="overlay-two">
+                                        <a asp-controller="" asp-action=""><i class="fab fa-twitter"></i></a>
+                                        <a class="facebook" asp-controller="" asp-action=""><i class="fab fa-facebook-f"></i></a>
+                                        <a asp-controller="" asp-action=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <h3>
+                                    <b> Tyler Holland </b>
+                                </h3>
+                                <p>
+                                    <b> Branch <br /> Manager </b>
+                                </p>
+                                <button class="btn btn-default" id="team-member-profile-btn-id-four">
+                                    <b> READ MORE </b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Animate_css/gulpfile.js"></script>
+<script src="~/Scroll_Animate/scrollreveal.min.js"></script>
+
+
+<script>
+        $(document).ready(function () {
+
+            //  about us part from here
+
+
+            $("#yearbtn1").click(function () {
+                $(".history-two").hide();
+                $(".history-three").hide();
+                $(".history-four").hide();
+                $(".history-five").hide();
+                $(".history-one").show();
+            });
+            $("#yearbtn2").click(function () {
+
+                $(".history-one").hide();
+                $(".history-three").hide();
+                $(".history-four").hide();
+                $(".history-five").hide();
+                $(".history-two").show();
+            });
+            $("#yearbtn3").click(function () {
+
+                $(".history-one").hide();
+                $(".history-two").hide();
+                $(".history-four").hide();
+                $(".history-five").hide();
+                $(".history-three").show();
+
+            });
+            $("#yearbtn4").click(function () {
+
+                $(".history-one").hide();
+                $(".history-two").hide();
+                $(".history-three").hide();
+                $(".history-five").hide();
+                $(".history-four").show();
+
+            });
+            $("#yearbtn5").click(function () {
+
+                $(".history-one").hide();
+                $(".history-two").hide();
+                $(".history-three").hide();
+                $(".history-four").hide();
+                $(".history-five").show();
+
+            });
+
+
+
+            // Scroll Animation
+
+
+            window.sr = ScrollReveal();
+
+            // welcome message part
+
+            sr.reveal('#welcome-message',
+                {
+                    duration: 2000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#welcome-discription',
+                {
+                    duration: 2000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#big-logo',
+                {
+                    duration: 2000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#big-logo-text',
+                {
+                    duration: 2000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+
+            //  Bottom Body image scroll Reveal
+
+            sr.reveal('.bottom-body-left',
+                {
+                    duration: 5000,
+                    origin: 'left',
+                    distance: '400px'
+                });
+            sr.reveal('.bottom-body-right',
+                {
+                    duration: 5000,
+                    origin: 'right',
+                    distance: '400px'
+                });
+
+            //  About Us Section from here
+
+            sr.reveal('.about-us',
+                {
+                    duration: 4000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+
+            // Products Section from here
+
+            sr.reveal('.products',
+                {
+                    duration: 2000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('.products-bottom-left-side',
+                {
+                    duration: 5000,
+                    origin: 'left',
+                    distance: '300px'
+                });
+            sr.reveal('.products-bottom-right-side',
+                {
+                    duration: 5000,
+                    origin: 'right',
+                    distance: '300px'
+                });
+
+            //   Our Shop Section from here   product-item
+
+
+            sr.reveal('#product-item-id-one',
+                {
+                    duration: 2000,
+                    origin: 'right',
+                    distance: '300px'
+                });
+            sr.reveal('#product-item-id-two',
+                {
+                    duration: 2000,
+                    origin: 'top',
+                    distance: '300px'
+                });
+            sr.reveal('#product-item-id-three',
+                {
+                    duration: 2000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#product-item-id-four',
+                {
+                    duration: 2000,
+                    origin: 'left',
+                    distance: '300px'
+                });
+
+            // Group Team Member Section from here
+
+            sr.reveal('.team-group',
+                {
+                    duration: 4000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#team-member-profile-id-one',
+                {
+                    duration: 5000,
+                    origin: 'left',
+                    distance: '300px'
+                });
+            sr.reveal('#team-member-profile-id-two',
+                {
+                    duration: 5000,
+                    origin: 'top',
+                    distance: '300px'
+                });
+            sr.reveal('#team-member-profile-id-three',
+                {
+                    duration: 5000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#team-member-profile-id-four',
+                {
+                    duration: 5000,
+                    origin: 'right',
+                    distance: '300px'
+                });
+
+            //  blogs Section from here
+
+            sr.reveal('.blogs',
+                {
+                    duration: 3000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('.blogs-heder',
+                {
+                    duration: 4000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#blogs-body-items-col-one',
+                {
+                    duration: 4000,
+                    origin: 'left',
+                    distance: '300px'
+                });
+            sr.reveal('#blogs-body-items-col-two',
+                {
+                    duration: 4000,
+                    origin: 'bottom',
+                    distance: '300px'
+                });
+            sr.reveal('#blogs-body-items-col-three',
+                {
+                    duration: 4000,
+                    origin: 'right',
+                    distance: '300px'
+                });
+
+        });
+
+
+
+</script>
+

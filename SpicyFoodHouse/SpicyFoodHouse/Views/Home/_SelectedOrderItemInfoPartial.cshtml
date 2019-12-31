@@ -1,0 +1,61 @@
+﻿
+
+<table class="table table-bordered table-hover table-responsive table-striped">
+
+    <tr>
+        <th>
+            Food Name
+        </th>
+        <td>
+            @ViewBag.foodName
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Food Type
+        </th>
+        <td>
+            @ViewBag.foodTypeName
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Image
+        </th>
+        <td>
+            <img src="data:image;base64, @Convert.ToBase64String(ViewBag.image)" style="width: 100px; height: 100px;"/>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Discount
+        </th>
+        <td>
+            @ViewBag.discount%
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Price
+        </th>
+        <td>
+            @if (ViewBag.discount > 0)
+            {
+                @(ViewBag.price - ((ViewBag.price * ViewBag.discount) / 100))
+            }
+            else
+            {
+                @ViewBag.price
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Description
+        </th>
+        <td>
+            @ViewBag.description
+        </td>
+    </tr>
+
+</table>

@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<style>
+   
+    .admin-index {
+        margin-top: -5px;
+        margin-left: -115px;
+        margin-right: -115px;
+        background: #152036;
+        overflow: hidden;
+    }
+
+    .admin-index h3 {
+        color: whitesmoke;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 50px;
+        font-weight: bold;
+    }
+
+    .admin-panel {
+        background: #152036;
+    }
+
+    .left-side-bar {
+        border: 15px solid black;
+        margin-left: 5px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        /*background: #1B2A47;*/
+    }
+
+    .left-side-bar ul li {
+        list-style: none;
+        padding-top: 10px;
+    }
+
+    .left-side-bar ul li a:hover {
+        text-decoration: none;
+        color: #ffcc00;
+    }
+
+    .left-side-bar ul li a {
+        font-size: 15px;
+    }
+
+    .right-side {
+        border: 10px solid black;
+        /*background: #1B2A47;*/
+    }
+
+    .control-panel-hedding {
+        color: whitesmoke;
+        border-top: 20px solid black;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-left: 40px;
+    }
+
+    .hedding-right {
+        float: right;
+    }
+
+    .col-md-1 {
+        font-size: 70px;
+    }
+
+    .hedding-right i {
+        font-size: 30px;
+        margin-top: 40px;
+        padding-right: 30px;
+    }
+
+    .analysis-item {
+        border-top: 20px solid black;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: whitesmoke;
+    }
+    .analysis-item p {
+        text-align: center;
+    }
+    .item {
+        border: 10px solid black;
+    }
+
+    .analysis-img {
+        width: 90%;
+        margin-left: 40px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+
+</style>
+
+
+
+<div class="admin-index">
+    <h3>SpicyFood<span style="color: #ffcc00">House</span></h3>
+    <section>
+        <div class="admin-panel">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="left-side-bar">
+                        <ul>
+                            <li>
+                                <a asp-controller="Foods" asp-action="Index"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Foods</a>
+                            </li>
+                            <li>
+                                <a asp-controller="FoodOrders" asp-action="Index"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Orders</a>
+                            </li>
+                            <li>
+                                <a asp-controller="FoodTypes" asp-action="Index"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Food Type </a>
+                            </li>
+                            <li>
+                                <a asp-controller="FoodQuarters" asp-action="Index"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Food Quarter</a>
+                            </li>
+                            <li>
+                                <a asp-controller="PaymentMethods" asp-action="Index"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Payment Method</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Comments" asp-action="Index"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Comment</a>
+                            </li>
+                            <li>
+                                <a asp-controller="AvailableInStocks" asp-action="Index"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Available In Stocks</a>
+                            </li>
+                            <li>
+                                <a asp-controller="AdminPanel" asp-action="Index" asp-route-id="1"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Today</a>
+                            </li>
+                            <li>
+                                <a asp-controller="AdminPanel" asp-action="Index" asp-route-id="7"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Last Week</a>
+                            </li>
+                            <li>
+                                <a asp-controller="AdminPanel" asp-action="Index" asp-route-id="30"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Last Month</a>
+                            </li>
+                            <li>
+                                <a asp-controller="AdminPanel" asp-action="Index" asp-route-id="365"><i class="fas fa-caret-square-right"></i> &nbsp;&nbsp; Last Year</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9">
+                    <div class="right-side">
+                        <div class="row">
+                            <div class="control-panel-hedding">
+                                <div class="col-lg-1 col-md-1">
+                                    <i class="fas fa-square"></i>
+                                </div>
+                                <div class="col-lg-8 col-md-8">
+                                    <h2>Dashboard</h2>
+                                    <h4>Admin Control Panel</h4>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="hedding-right">
+                                        <i class="far fa-square"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="analysis-item">
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 item">
+                                    <h3>Today Sell</h3>
+                                    <p>@ViewBag.amount tk</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 item">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <h3>Orders</h3>
+                                    <p>@ViewBag.order</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 item">
+                                    <h3>Comment</h3>
+                                    <p>@ViewBag.comment</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 item">
+                                    <h3>Food Type</h3>
+                                    <p>@ViewBag.foodType</p>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <img src="~/images/chart.png" class="img-responsive" width="80%" style="margin: auto"/>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

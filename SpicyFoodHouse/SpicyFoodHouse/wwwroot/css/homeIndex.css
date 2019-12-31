@@ -1,0 +1,36 @@
+﻿
+
+ @media screen and (max-width: 900px) {
+      #myCarousel {
+          margin-top: -36px;
+      }
+
+      #index-page-ads-one, #menu-under-ads {
+          display: none;
+      }
+  }
+
+ .carousel-caption h1 {
+     font-size: 5vw;
+ }
+
+ .carousel-caption h3 {
+     font-size: 4vw;
+ }
+
+ .slider-btn {
+     background: none;
+     color: whitesmoke;
+     border-radius: 0px;
+     border: 2px solid whitesmoke;
+     font-size: 1.5vw;
+ }
+
+ .slider-btn:hover {
+     background: goldenrod;
+     border-radius: 0px;
+     border: none;
+ }
+ .item-btn-cls {
+     float: right;
+ }

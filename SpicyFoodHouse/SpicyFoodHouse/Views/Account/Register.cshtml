@@ -1,0 +1,112 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="margin-from-top-in-Register-Login-view"></div>
+
+<!--Registration Form-->
+
+<div class="container padd-50 cart-table">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="wrapper text-center">
+                <form class="form-signin" enctype="multipart/form-data" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">    @*<br/>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <br/>*@
+                    <h2 class="heading-product">Please Register</h2>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="text" asp-for="CustomerName">
+                            <label class="input__label input__label--yoshiko" asp-for="CustomerName"> <span class="input__label-content input__label-content--yoshiko" data-content="Name">Name</span> </label>
+                            <span asp-validation-for="CustomerName" class="text-danger"></span>
+                        </span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="email" asp-for="Email">
+                            <label class="input__label input__label--yoshiko" asp-for="Email"> <span class="input__label-content input__label-content--yoshiko" data-content="Email">Email</span> </label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <label asp-for="NidOrBith"></label>
+                            <input class="form-control" type="file" asp-for="NidOrBith" name="nidOrbith">
+                        </span>
+                        <span asp-validation-for="NidOrBith" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <label asp-for="ProfileImage"></label>
+                            <input class="form-control" type="file" asp-for="ProfileImage" name="profileImage">
+                        </span>
+                        <span asp-validation-for="NidOrBith" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="text" asp-for="Phone">
+                            <label class="input__label input__label--yoshiko" asp-for="Phone"> <span class="input__label-content input__label-content--yoshiko" data-content="Phone">Phone</span> </label>
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="text" asp-for="Address">
+                            <label class="input__label input__label--yoshiko" asp-for="Address"> <span class="input__label-content input__label-content--yoshiko" data-content="Address">Full Address</span> </label>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </span>
+                    </div>
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="password" asp-for="Password">
+                            <label class="input__label input__label--yoshiko" asp-for="Password"> <span class="input__label-content input__label-content--yoshiko" data-content="Password">Password</span> </label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </span>
+                    </div> 
+                    <div class="col-md-12 input-position">
+                        <span class="input input--yoshiko">
+                            <input class="input__field input__field--yoshiko" type="password" asp-for="ConfirmPassword">
+                            <label class="input__label input__label--yoshiko" for="password"> <span class="input__label-content input__label-content--yoshiko" data-content="password">Confirm Password</span> </label>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </span>
+                    </div>
+                    <input class="submit-button def-btn lg-btn" type="submit" value="Submit"/>  
+                </form>
+                <p class="pt-20">Already a member? <a asp-controller="Account" asp-action="Login">login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Register</button>
+        </form>
+    </div>
+</div>*@
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

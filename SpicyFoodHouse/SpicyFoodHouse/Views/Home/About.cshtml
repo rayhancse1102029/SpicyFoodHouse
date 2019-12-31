@@ -1,0 +1,123 @@
+﻿
+@model PaginatedList<SpicyFoodHouse.Models.Comment>
+
+@{
+    ViewData["Title"] = "About";
+    Layout = "_Layout";
+
+    int i = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+}
+
+
+<div class="margin-from-top-in-Others-client-view"></div>
+
+<section>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4"><b>About Spicy Food House</b></h1><hr/>
+                <p class="lead">Spicy Food House is the Fast Food and Chinese Food Restaurant. Where you can find the maximum number of popular food and also, we have the some special items of recipe which made by our self. Advance welcome to you for try or test our food.</p>
+                <hr class="my-4">
+                <p>Now, we are also working for online food delivery system.</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div role="tabpanel" class="tab-pane" id="comment-section-id">
+            <div class="leave-comt">
+                <h2 class="content-subhead">LEAVE A COMMENT</h2>
+                <p>Your email address will not be published.</p>
+                <form asp-controller="OthersLogic" asp-action="Comment" method="post">
+                    <div class="contact-form">
+                        <div class="row text-center">
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-10" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="First Name">First Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-11" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Last Name">Last Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 input-position">
+                                <span class="input input--yoshiko">
+                                    <textarea class="input__field input__field--yoshiko" id="input-12" name="commentText"></textarea>
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Message">Message</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 submit-button"><input type="submit" value="Submit" class="def-btn lg-btn" /> </div>
+                        </div>
+                    </div>
+                </form>
+                <hr />
+                <div class="comment-box text-left">
+                    <h2>@ViewBag.totalComment COMMENT</h2>
+                    @foreach (var item in Model)
+                    {
+                        <div class="comment-1">
+                            <img src="~/images/iconLogo.png" alt="" class="img-circle img-responsive" width="80px" height="80px;"/>
+                            <h4>@item.Username</h4>
+                            &nbsp; <span>@item.CommentTime</span> &nbsp; <a href="#">Reply</a>
+                            <div class="item-list-rating"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
+                            <p>@item.CommentText</p>
+                        </div>
+                        <div class="divider"></div>
+                    }
+                </div>
+
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+                <a asp-action="About"
+                   asp-route-sortOrder="@ViewBag.sortOrder"
+                   asp-route-page=@(Model.PageIndex - 1)
+                   class="btn btn-info @prevDisabled">Previous</a>
+
+                @{
+                    var start = cp - 5;
+                    var end = cp + 5;
+                    for (int j = start; j <= end; j++)
+                    {
+                        if (j > 0 && j <= tp)
+                        {
+                            if (cp == j)
+                            {
+                                <a asp-action="About"
+                                   asp-route-sortOrder="@ViewBag.sortOrder"
+                                   asp-route-page=@j
+                                   class="btn btn-danger @nextDisabled">@j</a>
+                            }
+                            else
+                            {
+                                <a asp-action="About"
+                                   asp-route-sortOrder="@ViewBag.sortOrder"
+                                   asp-route-page=@j
+                                   class="btn btn-info @nextDisabled">@j</a>
+                            }
+                        }
+                    }
+                }
+
+                <a asp-action="About"
+                   asp-route-sortOrder="@ViewBag.sortOrder"
+                   asp-route-page=@(Model.PageIndex + 1)
+                   class="btn btn-info @nextDisabled">
+                    Next
+                </a>
+
+            </div>
+        </div>
+    </div>
+</section>

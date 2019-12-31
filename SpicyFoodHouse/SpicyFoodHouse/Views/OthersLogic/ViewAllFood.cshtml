@@ -1,0 +1,206 @@
+﻿
+@model PaginatedList<SpicyFoodHouse.Models.Food>
+
+@{
+    ViewData["Title"] = "ViewAllFood";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 1;
+    int cp = Model.PageIndex;
+    int tp = Model.TotalPages;
+    i = (cp - 1) * 10 + 1;
+
+}
+
+<style>
+    .view-all-food-section {
+        margin-top: 50px;
+    }
+    .view-food-item {
+        border: 1px solid gainsboro;
+    }
+    .view-food-item img:hover {
+        opacity: 0.4;
+    }
+    .item-btn-cls {
+        float: right;
+    }
+    .no-spacing {
+        padding: 0;
+        margin: 0;
+    }
+    .price-cls {
+        padding-left: 15px;
+    }
+    .title-of-view-all-products {
+
+        text-align: center;
+    }
+    .title-of-view-all-products button {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    .title-of-view-all-products h2:hover {
+        color: black;
+    }
+    .star-icon i{
+        color: gold;
+    }
+    #view-all-item-price-show-id {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    #view-all-food-details-and-order-block-id{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    #view-all-food-details-and-order-block-id .btn {
+        border-radius: 0;
+    }
+    #view-all-food-name {
+        text-align: center;
+    }
+
+    #comment-section-id {
+
+        margin-top: 50px;
+        border: 2px solid whitesmoke;
+        padding: 20px;
+    }
+</style>
+
+@*<div class="margin-from-top-in-Others-client-view"></div>*@
+
+<section class="view-all-food-section">
+
+    <div class="container">
+        <div class="title-of-view-all-products">
+            <button class="btn btn-danger"><h3><b>ALL &nbsp; @ViewBag.typeSelected.ToUpper()</b></h3></button>
+        </div>
+        <br/><br/>
+        <button class="btn btn-danger">Total Result :  @ViewBag.totalResultFound</button>
+        <br /><br /><br />
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 no-spacing">
+                    <div class="view-food-item">
+                        <a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@item.FoodId">
+                            <img src="data:image;base64, @Convert.ToBase64String(item.Image)" class="img-responsive" />
+                        </a>
+                        <hr/>
+                        <div>
+                            <h4 id="view-all-food-name"><b>@item.FoodName</b></h4>
+                            <hr />
+                            <div id="view-all-item-price-show-id">
+                                <span class="star-icon">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <br />
+
+                                @if (item.Discount > 0)
+                                {
+                                    <h5> @(item.Price - ((item.Price * item.Discount) / 100)) ৳ &nbsp;&nbsp; <del> @item.Price ৳</del><span>&nbsp;&nbsp; @item.Discount% off</span></h5>
+
+                                }
+                                else
+                                {
+                                    <h5>@item.Price ৳</h5>
+                                }
+                            </div>
+                            <br />
+                            <div id="view-all-food-details-and-order-block-id">
+                                <a asp-controller="OthersLogic" asp-action="ViewFoodDetails" asp-route-id="@item.FoodId" class="btn btn-info btn-block">Details</a>
+                                <a asp-controller="OthersLogic" asp-action="SingleFoodOrder" asp-route-id="@item.FoodId"  class="btn btn-block btn-danger">ORDER NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <br /><br /><br />
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+        <a asp-action="ViewAllFood"
+           asp-route-sortOrder="@ViewBag.sortOrder"
+           asp-route-page=@(Model.PageIndex - 1)
+           class="btn btn-info @prevDisabled">Previous</a>
+
+        @{
+            var start = cp - 5;
+            var end = cp + 5;
+            for (int j = start; j <= end; j++)
+            {
+                if (j > 0 && j <= tp)
+                {
+                    if (cp == j)
+                    {
+                        <a asp-controller="OthersLogic" asp-action="ViewAllFood"
+                           asp-route-sortOrder="@ViewBag.sortOrder"
+                           asp-route-page=@j
+                           class="btn btn-danger @nextDisabled">@j</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="OthersLogic" asp-action="ViewAllFood"
+                           asp-route-sortOrder="@ViewBag.sortOrder"
+                           asp-route-page=@j
+                           class="btn btn-info @nextDisabled">@j</a>
+                    }
+                }
+            }
+        }
+
+        <a asp-action="ViewAllFood"
+           asp-route-sortOrder="@ViewBag.sortOrder"
+           asp-route-page=@(Model.PageIndex + 1)
+           class="btn btn-info @nextDisabled">
+            Next
+        </a>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div role="tabpanel" class="tab-pane" id="comment-section-id">
+            <div class="leave-comt">
+                <h2 class="content-subhead">LEAVE A COMMENT</h2>
+                <p>Your email address will not be published.</p>
+                <form asp-controller="OthersLogic" asp-action="Comment" method="post">
+                    <div class="contact-form">
+                        <div class="row text-center">
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-10" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="First Name">First Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-6 input-position">
+                                <span class="input input--yoshiko">
+                                    <input class="input__field input__field--yoshiko" type="text" id="input-11" />
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Last Name">Last Name</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 input-position">
+                                <span class="input input--yoshiko">
+                                    <textarea class="input__field input__field--yoshiko" id="input-12" name="commentText"></textarea>
+                                    <label class="input__label input__label--yoshiko" for="input-10"> <span class="input__label-content input__label-content--yoshiko" data-content="Message">Message</span> </label>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 submit-button"><input type="submit" value="Submit" class="def-btn lg-btn" /> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

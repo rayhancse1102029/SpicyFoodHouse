@@ -1,0 +1,46 @@
+﻿
+
+ .navbar-inverse {
+     display: none;
+ } 
+ @media screen and (max-width: 900px) {
+      #bg-navbar-id, #bg-navbar-id-two {
+          display: none;
+      }
+      .navbar-inverse {
+          display: inline;
+      } 
+  }
+ .top-bar-content ul li a:hover {
+     color: black;
+     font-size: 35px;
+ }
+
+ /*index*/
+ .margin-from-top-in-index {
+     margin-top: 30px;
+ }
+
+ /*other logic*/
+ .margin-from-top-in-Others-client-view {
+     margin-top: 100px;
+ }
+
+ /*register and login*/
+
+ .margin-from-top-in-Register-Login-view {
+     margin-top: 50px;
+ }
+ .user-name-and-logo p, .user-name-and-logo i {
+     color: lime;
+ }
+ .mega-menu ul li a:hover{
+     background: none;
+     color: deepskyblue;
+     font-size: 18px;
+     font-weight: bold;
+ }
+ #logOut-btn-id {
+
+     margin-left: -40px;
+ }
